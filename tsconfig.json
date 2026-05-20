@@ -5,7 +5,7 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "flexible-date-picker": [
+      "ngx-flexible-date-picker": [
         "./projects/flexible-date-picker/src/public-api.ts"
       ]
     },
