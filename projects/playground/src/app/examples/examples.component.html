@@ -1,0 +1,758 @@
+  <main class="playground">
+    <div class="playground-hero">
+      <h1>MVP playground</h1>
+      <p>
+        Angular date picker library — explore every picker with live configuration panels.
+      </p>
+      <p class="playground-hero__bounds">
+        Default bounds when min/max enabled: days
+        {{ minDate | date: 'mediumDate' }} – {{ maxDate | date: 'mediumDate' }}
+        · months {{ minMonth | date: 'MMM yyyy' }} – {{ maxMonth | date: 'MMM yyyy' }}
+        · years {{ minYear | date: 'yyyy' }} – {{ maxYear | date: 'yyyy' }}
+      </p>
+    </div>
+
+  <div class="playground-grid">
+    <section class="playground-card">
+      <h2>Date Picker (Reactive Forms)</h2>
+      @let dateConfig = datePickerConfig();
+      <div class="playground-config">
+        <label>
+          Placeholder
+          <input
+            type="text"
+            [value]="dateConfig.placeholder"
+            (input)="updatePickerConfig(datePickerConfig, { placeholder: $any($event.target).value })"
+          />
+        </label>
+        <label>
+          Format
+          <select
+            [value]="dateConfig.dateFormat"
+            (change)="updatePickerConfig(datePickerConfig, { dateFormat: $any($event.target).value })"
+          >
+            @for (option of dateFormatOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="dateConfig.useMinMax"
+            (change)="updatePickerConfig(datePickerConfig, { useMinMax: $any($event.target).checked })"
+          />
+          Min / max
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="dateConfig.disableWeekends"
+            (change)="updatePickerConfig(datePickerConfig, { disableWeekends: $any($event.target).checked })"
+          />
+          Disable weekends
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="dateConfig.disabled"
+            (change)="updatePickerConfig(datePickerConfig, { disabled: $any($event.target).checked })"
+          />
+          Disabled
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="dateConfig.showIcon"
+            (change)="updatePickerConfig(datePickerConfig, { showIcon: $any($event.target).checked })"
+          />
+          Show icon
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="dateConfig.timeEnabled"
+            (change)="updatePickerConfig(datePickerConfig, { timeEnabled: $any($event.target).checked })"
+          />
+          Enable time
+        </label>
+        @if (dateConfig.timeEnabled) {
+          <label>
+            Time format
+            <select
+              [value]="dateConfig.timeFormat"
+              (change)="updatePickerConfig(datePickerConfig, { timeFormat: $any($event.target).value })"
+            >
+              @for (option of timeFormatOptions; track option.value) {
+                <option [value]="option.value">{{ option.label }}</option>
+              }
+            </select>
+          </label>
+        }
+      </div>
+      <fdp-date-picker
+        [formControl]="form.controls.date"
+        [placeholder]="dateConfig.placeholder"
+        [dateFormat]="dateConfig.dateFormat"
+        [min]="dateMin(dateConfig)"
+        [max]="dateMax(dateConfig)"
+        [isDateDisabled]="dateDisabledFn(dateConfig)"
+        [disabled]="dateConfig.disabled"
+        [showIcon]="dateConfig.showIcon"
+        [time]="dateTimeConfig(dateConfig)"
+      />
+      <p class="playground-value">
+        Value: {{ form.controls.date.value | date: 'mediumDate' }}
+        @if (form.controls.date.invalid && form.controls.date.touched) {
+          <span class="playground-value__error"> — Required</span>
+        }
+      </p>
+    </section>
+
+    <section class="playground-card">
+      <h2>Date Picker (ngModel)</h2>
+      @let ngModelConfig = ngModelDatePickerConfig();
+      <div class="playground-config">
+        <label>
+          Placeholder
+          <input
+            type="text"
+            [value]="ngModelConfig.placeholder"
+            (input)="updatePickerConfig(ngModelDatePickerConfig, { placeholder: $any($event.target).value })"
+          />
+        </label>
+        <label>
+          Format
+          <select
+            [value]="ngModelConfig.dateFormat"
+            (change)="updatePickerConfig(ngModelDatePickerConfig, { dateFormat: $any($event.target).value })"
+          >
+            @for (option of dateFormatOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="ngModelConfig.useMinMax"
+            (change)="updatePickerConfig(ngModelDatePickerConfig, { useMinMax: $any($event.target).checked })"
+          />
+          Min / max
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="ngModelConfig.disableWeekends"
+            (change)="updatePickerConfig(ngModelDatePickerConfig, { disableWeekends: $any($event.target).checked })"
+          />
+          Disable weekends
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="ngModelConfig.disabled"
+            (change)="updatePickerConfig(ngModelDatePickerConfig, { disabled: $any($event.target).checked })"
+          />
+          Disabled
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="ngModelConfig.showIcon"
+            (change)="updatePickerConfig(ngModelDatePickerConfig, { showIcon: $any($event.target).checked })"
+          />
+          Show icon
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="ngModelConfig.timeEnabled"
+            (change)="updatePickerConfig(ngModelDatePickerConfig, { timeEnabled: $any($event.target).checked })"
+          />
+          Enable time
+        </label>
+        @if (ngModelConfig.timeEnabled) {
+          <label>
+            Time format
+            <select
+              [value]="ngModelConfig.timeFormat"
+              (change)="updatePickerConfig(ngModelDatePickerConfig, { timeFormat: $any($event.target).value })"
+            >
+              @for (option of timeFormatOptions; track option.value) {
+                <option [value]="option.value">{{ option.label }}</option>
+              }
+            </select>
+          </label>
+        }
+      </div>
+      <fdp-date-picker
+        [(ngModel)]="ngModelDate"
+        [placeholder]="ngModelConfig.placeholder"
+        [dateFormat]="ngModelConfig.dateFormat"
+        [min]="dateMin(ngModelConfig)"
+        [max]="dateMax(ngModelConfig)"
+        [isDateDisabled]="dateDisabledFn(ngModelConfig)"
+        [disabled]="ngModelConfig.disabled"
+        [showIcon]="ngModelConfig.showIcon"
+        [time]="dateTimeConfig(ngModelConfig)"
+      />
+      <p class="playground-value">Value: {{ ngModelDate | date: 'mediumDate' }}</p>
+    </section>
+
+    <section class="playground-card">
+      <h2>Date Range Picker</h2>
+      @let rangeConfig = dateRangePickerConfig();
+      <div class="playground-config">
+        <label>
+          Placeholder
+          <input
+            type="text"
+            [value]="rangeConfig.placeholder"
+            (input)="updatePickerConfig(dateRangePickerConfig, { placeholder: $any($event.target).value })"
+          />
+        </label>
+        <label>
+          Format
+          <select
+            [value]="rangeConfig.dateFormat"
+            (change)="updatePickerConfig(dateRangePickerConfig, { dateFormat: $any($event.target).value })"
+          >
+            @for (option of dateFormatOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+        </label>
+        <label>
+          Preset sidebar
+          <select
+            [value]="rangeConfig.presetSidebarMode"
+            (change)="updatePickerConfig(dateRangePickerConfig, { presetSidebarMode: $any($event.target).value })"
+          >
+            <option value="default">Default shortcuts</option>
+            <option value="custom">Custom shortcuts</option>
+            <option value="hidden">Hidden</option>
+          </select>
+        </label>
+        <label>
+          Calendars
+          <select
+            [value]="rangeConfig.calendarLayoutMode"
+            (change)="updatePickerConfig(dateRangePickerConfig, { calendarLayoutMode: $any($event.target).value })"
+          >
+            <option value="auto">Auto (responsive)</option>
+            <option value="single">Single calendar</option>
+            <option value="double">Double calendar</option>
+          </select>
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="rangeConfig.useMinMax"
+            (change)="updatePickerConfig(dateRangePickerConfig, { useMinMax: $any($event.target).checked })"
+          />
+          Min / max
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="rangeConfig.disableWeekends"
+            (change)="updatePickerConfig(dateRangePickerConfig, { disableWeekends: $any($event.target).checked })"
+          />
+          Disable weekends
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="rangeConfig.disabled"
+            (change)="updatePickerConfig(dateRangePickerConfig, { disabled: $any($event.target).checked })"
+          />
+          Disabled
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="rangeConfig.showIcon"
+            (change)="updatePickerConfig(dateRangePickerConfig, { showIcon: $any($event.target).checked })"
+          />
+          Show icon
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="rangeConfig.timeEnabled"
+            (change)="updatePickerConfig(dateRangePickerConfig, { timeEnabled: $any($event.target).checked })"
+          />
+          Enable time
+        </label>
+        @if (rangeConfig.timeEnabled) {
+          <label>
+            Time format
+            <select
+              [value]="rangeConfig.timeFormat"
+              (change)="updatePickerConfig(dateRangePickerConfig, { timeFormat: $any($event.target).value })"
+            >
+              @for (option of timeFormatOptions; track option.value) {
+                <option [value]="option.value">{{ option.label }}</option>
+              }
+            </select>
+          </label>
+        }
+      </div>
+      <fdp-date-range-picker
+        [formControl]="form.controls.range"
+        [placeholder]="rangeConfig.placeholder"
+        [dateFormat]="rangeConfig.dateFormat"
+        [min]="dateMin(rangeConfig)"
+        [max]="dateMax(rangeConfig)"
+        [isDateDisabled]="dateDisabledFn(rangeConfig)"
+        [presetSidebar]="dateRangePresetSidebar(rangeConfig)"
+        [calendarLayout]="dateRangeCalendarLayout(rangeConfig)"
+        [disabled]="rangeConfig.disabled"
+        [showIcon]="rangeConfig.showIcon"
+        [time]="dateTimeConfig(rangeConfig)"
+      />
+      <p class="playground-value">
+        @if (form.controls.range.value?.start) {
+          {{ form.controls.range.value?.start | date: 'mediumDate' }}
+          –
+          {{ form.controls.range.value?.end | date: 'mediumDate' }}
+        } @else {
+          No range selected
+        }
+      </p>
+    </section>
+
+    <section class="playground-card">
+      <h2>Time Picker</h2>
+      @let timeConfig = timePickerConfig();
+      <div class="playground-config">
+        <label>
+          Placeholder
+          <input
+            type="text"
+            [value]="timeConfig.placeholder"
+            (input)="updatePickerConfig(timePickerConfig, { placeholder: $any($event.target).value })"
+          />
+        </label>
+        <label>
+          Format
+          <select
+            [value]="timeConfig.timeFormat"
+            (change)="updatePickerConfig(timePickerConfig, { timeFormat: $any($event.target).value })"
+          >
+            @for (option of timeFormatOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+        </label>
+        <label>
+          Minute step
+          <select
+            [value]="timeConfig.minuteStep"
+            (change)="updatePickerConfig(timePickerConfig, { minuteStep: +$any($event.target).value })"
+          >
+            <option [value]="1">1</option>
+            <option [value]="5">5</option>
+            <option [value]="15">15</option>
+            <option [value]="30">30</option>
+          </select>
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="timeConfig.disabled"
+            (change)="updatePickerConfig(timePickerConfig, { disabled: $any($event.target).checked })"
+          />
+          Disabled
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="timeConfig.showIcon"
+            (change)="updatePickerConfig(timePickerConfig, { showIcon: $any($event.target).checked })"
+          />
+          Show icon
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="timeConfig.use24Hour"
+            (change)="updatePickerConfig(timePickerConfig, { use24Hour: $any($event.target).checked })"
+          />
+          24-hour
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="timeConfig.showSeconds"
+            (change)="updatePickerConfig(timePickerConfig, { showSeconds: $any($event.target).checked })"
+          />
+          Show seconds
+        </label>
+      </div>
+      <fdp-time-picker
+        [formControl]="form.controls.time"
+        [placeholder]="timeConfig.placeholder"
+        [timeFormat]="timeConfig.timeFormat"
+        [minuteStep]="timeConfig.minuteStep"
+        [use24Hour]="timeConfig.use24Hour"
+        [showSeconds]="timeConfig.showSeconds"
+        [disabled]="timeConfig.disabled"
+        [showIcon]="timeConfig.showIcon"
+      />
+      <p class="playground-value">
+        Value: {{ form.controls.time.value | date: timeConfig.timeFormat }}
+      </p>
+    </section>
+
+    <section class="playground-card">
+      <h2>Time Range Picker</h2>
+      @let timeRangeConfig = timeRangePickerConfig();
+      <div class="playground-config">
+        <label>
+          Placeholder
+          <input
+            type="text"
+            [value]="timeRangeConfig.placeholder"
+            (input)="updatePickerConfig(timeRangePickerConfig, { placeholder: $any($event.target).value })"
+          />
+        </label>
+        <label>
+          Format
+          <select
+            [value]="timeRangeConfig.timeFormat"
+            (change)="updatePickerConfig(timeRangePickerConfig, { timeFormat: $any($event.target).value })"
+          >
+            @for (option of timeFormatOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+        </label>
+        <label>
+          Minute step
+          <select
+            [value]="timeRangeConfig.minuteStep"
+            (change)="updatePickerConfig(timeRangePickerConfig, { minuteStep: +$any($event.target).value })"
+          >
+            <option [value]="1">1</option>
+            <option [value]="5">5</option>
+            <option [value]="15">15</option>
+            <option [value]="30">30</option>
+          </select>
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="timeRangeConfig.disabled"
+            (change)="updatePickerConfig(timeRangePickerConfig, { disabled: $any($event.target).checked })"
+          />
+          Disabled
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="timeRangeConfig.showIcon"
+            (change)="updatePickerConfig(timeRangePickerConfig, { showIcon: $any($event.target).checked })"
+          />
+          Show icon
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="timeRangeConfig.use24Hour"
+            (change)="updatePickerConfig(timeRangePickerConfig, { use24Hour: $any($event.target).checked })"
+          />
+          24-hour
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="timeRangeConfig.showSeconds"
+            (change)="updatePickerConfig(timeRangePickerConfig, { showSeconds: $any($event.target).checked })"
+          />
+          Show seconds
+        </label>
+      </div>
+      <fdp-time-range-picker
+        [formControl]="form.controls.timeRange"
+        [placeholder]="timeRangeConfig.placeholder"
+        [timeFormat]="timeRangeConfig.timeFormat"
+        [minuteStep]="timeRangeConfig.minuteStep"
+        [use24Hour]="timeRangeConfig.use24Hour"
+        [showSeconds]="timeRangeConfig.showSeconds"
+        [disabled]="timeRangeConfig.disabled"
+        [showIcon]="timeRangeConfig.showIcon"
+      />
+      <p class="playground-value">
+        @if (form.controls.timeRange.value?.start) {
+          {{ form.controls.timeRange.value?.start | date: timeRangeConfig.timeFormat }}
+          –
+          {{ form.controls.timeRange.value?.end | date: timeRangeConfig.timeFormat }}
+        } @else {
+          No time range selected
+        }
+      </p>
+    </section>
+
+    <section class="playground-card">
+      <h2>Month Picker</h2>
+      @let monthConfig = monthPickerConfig();
+      <div class="playground-config">
+        <label>
+          Placeholder
+          <input
+            type="text"
+            [value]="monthConfig.placeholder"
+            (input)="updatePickerConfig(monthPickerConfig, { placeholder: $any($event.target).value })"
+          />
+        </label>
+        <label>
+          Format
+          <select
+            [value]="monthConfig.monthFormat"
+            (change)="updatePickerConfig(monthPickerConfig, { monthFormat: $any($event.target).value })"
+          >
+            @for (option of monthFormatOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="monthConfig.useMinMax"
+            (change)="updatePickerConfig(monthPickerConfig, { useMinMax: $any($event.target).checked })"
+          />
+          Min / max
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="monthConfig.disabled"
+            (change)="updatePickerConfig(monthPickerConfig, { disabled: $any($event.target).checked })"
+          />
+          Disabled
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="monthConfig.showIcon"
+            (change)="updatePickerConfig(monthPickerConfig, { showIcon: $any($event.target).checked })"
+          />
+          Show icon
+        </label>
+      </div>
+      <fdp-month-picker
+        [formControl]="form.controls.month"
+        [placeholder]="monthConfig.placeholder"
+        [monthFormat]="monthConfig.monthFormat"
+        [min]="monthMin(monthConfig)"
+        [max]="monthMax(monthConfig)"
+        [disabled]="monthConfig.disabled"
+        [showIcon]="monthConfig.showIcon"
+      />
+      <p class="playground-value">
+        Value: {{ form.controls.month.value | date: 'MMM yyyy' }}
+      </p>
+    </section>
+
+    <section class="playground-card playground-card--wide">
+      <h2>Month Range Picker</h2>
+      @let monthRangeConfig = monthRangePickerConfig();
+      <div class="playground-config">
+        <label>
+          Placeholder
+          <input
+            type="text"
+            [value]="monthRangeConfig.placeholder"
+            (input)="updatePickerConfig(monthRangePickerConfig, { placeholder: $any($event.target).value })"
+          />
+        </label>
+        <label>
+          Format
+          <select
+            [value]="monthRangeConfig.monthFormat"
+            (change)="updatePickerConfig(monthRangePickerConfig, { monthFormat: $any($event.target).value })"
+          >
+            @for (option of monthFormatOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="monthRangeConfig.useMinMax"
+            (change)="updatePickerConfig(monthRangePickerConfig, { useMinMax: $any($event.target).checked })"
+          />
+          Min / max
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="monthRangeConfig.disabled"
+            (change)="updatePickerConfig(monthRangePickerConfig, { disabled: $any($event.target).checked })"
+          />
+          Disabled
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="monthRangeConfig.showIcon"
+            (change)="updatePickerConfig(monthRangePickerConfig, { showIcon: $any($event.target).checked })"
+          />
+          Show icon
+        </label>
+      </div>
+      <fdp-month-range-picker
+        [formControl]="form.controls.monthRange"
+        [placeholder]="monthRangeConfig.placeholder"
+        [monthFormat]="monthRangeConfig.monthFormat"
+        [min]="monthMin(monthRangeConfig)"
+        [max]="monthMax(monthRangeConfig)"
+        [disabled]="monthRangeConfig.disabled"
+        [showIcon]="monthRangeConfig.showIcon"
+      />
+      <p class="playground-value">
+        @if (form.controls.monthRange.value?.start) {
+          {{ form.controls.monthRange.value?.start | date: 'MMM yyyy' }}
+          –
+          {{ form.controls.monthRange.value?.end | date: 'MMM yyyy' }}
+        } @else {
+          No month range selected
+        }
+      </p>
+    </section>
+
+    <section class="playground-card">
+      <h2>Year Picker</h2>
+      @let yearConfig = yearPickerConfig();
+      <div class="playground-config">
+        <label>
+          Placeholder
+          <input
+            type="text"
+            [value]="yearConfig.placeholder"
+            (input)="updatePickerConfig(yearPickerConfig, { placeholder: $any($event.target).value })"
+          />
+        </label>
+        <label>
+          Format
+          <select
+            [value]="yearConfig.yearFormat"
+            (change)="updatePickerConfig(yearPickerConfig, { yearFormat: $any($event.target).value })"
+          >
+            @for (option of yearFormatOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="yearConfig.useMinMax"
+            (change)="updatePickerConfig(yearPickerConfig, { useMinMax: $any($event.target).checked })"
+          />
+          Min / max
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="yearConfig.disabled"
+            (change)="updatePickerConfig(yearPickerConfig, { disabled: $any($event.target).checked })"
+          />
+          Disabled
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="yearConfig.showIcon"
+            (change)="updatePickerConfig(yearPickerConfig, { showIcon: $any($event.target).checked })"
+          />
+          Show icon
+        </label>
+      </div>
+      <fdp-year-picker
+        [formControl]="form.controls.year"
+        [placeholder]="yearConfig.placeholder"
+        [yearFormat]="yearConfig.yearFormat"
+        [min]="yearMin(yearConfig)"
+        [max]="yearMax(yearConfig)"
+        [disabled]="yearConfig.disabled"
+        [showIcon]="yearConfig.showIcon"
+      />
+      <p class="playground-value">
+        Value: {{ form.controls.year.value | date: 'yyyy' }}
+      </p>
+    </section>
+
+    <section class="playground-card playground-card--full">
+      <h2>Year Range Picker</h2>
+      @let yearRangeConfig = yearRangePickerConfig();
+      <div class="playground-config">
+        <label>
+          Placeholder
+          <input
+            type="text"
+            [value]="yearRangeConfig.placeholder"
+            (input)="updatePickerConfig(yearRangePickerConfig, { placeholder: $any($event.target).value })"
+          />
+        </label>
+        <label>
+          Format
+          <select
+            [value]="yearRangeConfig.yearFormat"
+            (change)="updatePickerConfig(yearRangePickerConfig, { yearFormat: $any($event.target).value })"
+          >
+            @for (option of yearFormatOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="yearRangeConfig.useMinMax"
+            (change)="updatePickerConfig(yearRangePickerConfig, { useMinMax: $any($event.target).checked })"
+          />
+          Min / max
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="yearRangeConfig.disabled"
+            (change)="updatePickerConfig(yearRangePickerConfig, { disabled: $any($event.target).checked })"
+          />
+          Disabled
+        </label>
+        <label class="playground-checkbox">
+          <input
+            type="checkbox"
+            [checked]="yearRangeConfig.showIcon"
+            (change)="updatePickerConfig(yearRangePickerConfig, { showIcon: $any($event.target).checked })"
+          />
+          Show icon
+        </label>
+      </div>
+      <fdp-year-range-picker
+        [formControl]="form.controls.yearRange"
+        [placeholder]="yearRangeConfig.placeholder"
+        [yearFormat]="yearRangeConfig.yearFormat"
+        [min]="yearMin(yearRangeConfig)"
+        [max]="yearMax(yearRangeConfig)"
+        [disabled]="yearRangeConfig.disabled"
+        [showIcon]="yearRangeConfig.showIcon"
+      />
+      <p class="playground-value">
+        @if (form.controls.yearRange.value?.start) {
+          {{ form.controls.yearRange.value?.start | date: 'yyyy' }}
+          –
+          {{ form.controls.yearRange.value?.end | date: 'yyyy' }}
+        } @else {
+          No year range selected
+        }
+      </p>
+    </section>
+  </div>
+  </main>

@@ -1,0 +1,474 @@
+<main class="docs">
+  <div class="docs-layout">
+    <aside class="docs-sidebar" aria-label="Documentation sections">
+      <nav class="docs-toc">
+        <p class="docs-toc__title">On this page</p>
+        <ul>
+          <li><a routerLink="/features">Features overview</a></li>
+          <li><a routerLink="." fragment="introduction">Introduction</a></li>
+          <li><a routerLink="." fragment="installation">Installation</a></li>
+          <li><a routerLink="." fragment="quick-start">Quick start</a></li>
+          <li><a routerLink="." fragment="styling">Styling &amp; theming</a></li>
+          <li><a routerLink="." fragment="components">Components</a></li>
+          <li><a routerLink="." fragment="date-picker">Date picker</a></li>
+          <li><a routerLink="." fragment="date-range-picker">Date range picker</a></li>
+          <li><a routerLink="." fragment="time-pickers">Time pickers</a></li>
+          <li><a routerLink="." fragment="month-pickers">Month pickers</a></li>
+          <li><a routerLink="." fragment="year-pickers">Year pickers</a></li>
+          <li><a routerLink="." fragment="configuration">Shared configuration</a></li>
+          <li><a routerLink="." fragment="forms">Forms integration</a></li>
+          <li><a routerLink="." fragment="locale-rtl">Locale &amp; RTL</a></li>
+          <li><a routerLink="." fragment="headless-engines">Headless engines</a></li>
+          <li><a routerLink="." fragment="services">Services</a></li>
+          <li><a routerLink="." fragment="accessibility">Accessibility</a></li>
+          <li><a routerLink="." fragment="api-reference">API reference</a></li>
+          <li><a routerLink="." fragment="development">Development</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <article class="docs-content">
+      <header class="docs-hero">
+        <h1>Documentation</h1>
+        <p>
+          Complete guide to installing, configuring, and using FlexibleDatePicker in Angular
+          applications.
+        </p>
+        <a class="docs-hero__cta" routerLink="/">Open live examples →</a>
+      </header>
+
+      <section id="introduction" class="docs-section">
+        <h2>Introduction</h2>
+        <p>
+          <strong>FlexibleDatePicker</strong> is an Angular 20+ date and time picker library built
+          around headless selection engines and composable UI components. It uses
+          <a href="https://date-fns.org/" target="_blank" rel="noopener noreferrer">date-fns</a>
+          for formatting and calendar math, ships with light/dark theming via CSS variables, and
+          implements the Control Value Accessor (CVA) pattern for seamless reactive forms and
+          template-driven forms integration.
+        </p>
+        <p>All public pickers use the <code>fdp-*</code> selector prefix:</p>
+        <div class="docs-table-wrap">
+          <table class="docs-table">
+            <thead>
+              <tr>
+                <th>Selector</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>fdp-date-picker</code></td><td>Single date selection</td></tr>
+              <tr><td><code>fdp-date-range-picker</code></td><td>Date range with presets</td></tr>
+              <tr><td><code>fdp-time-picker</code></td><td>Single time (roller wheel)</td></tr>
+              <tr><td><code>fdp-time-range-picker</code></td><td>Start/end time range</td></tr>
+              <tr><td><code>fdp-month-picker</code></td><td>Month selection</td></tr>
+              <tr><td><code>fdp-month-range-picker</code></td><td>Month range</td></tr>
+              <tr><td><code>fdp-year-picker</code></td><td>Year selection</td></tr>
+              <tr><td><code>fdp-year-range-picker</code></td><td>Year range</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="features" class="docs-section">
+        <h2>Features</h2>
+        <p>
+          See the full <a routerLink="/features">Features page</a> for an overview of every capability,
+          picker component, and developer experience highlight.
+        </p>
+        <ul class="docs-list">
+          <li>Eight picker components covering date, time, month, and year — single and range modes</li>
+          <li>Headless engines for custom UI or testing without the DOM</li>
+          <li>Roller/wheel time selection with infinite loop scrolling (23 → 0 → 1)</li>
+          <li>Optional inline time on date and date-range pickers</li>
+          <li>Preset shortcut sidebar for date ranges (Last 7 days, This month, etc.)</li>
+          <li>Responsive dual-calendar layout for range selection</li>
+          <li>Min/max bounds, custom disabled dates, and weekend blocking</li>
+          <li>Calendar and clock icons, configurable placeholders and formats</li>
+          <li>Light/dark theme via CSS variables and <code>FlexThemeService</code></li>
+          <li>Locale support and RTL layout via <code>FlexLocaleService</code></li>
+          <li>Popover overlay with focus trap, escape to close, and outside-click dismiss</li>
+          <li>OnPush change detection and signal-based Angular APIs</li>
+        </ul>
+      </section>
+
+      <section id="installation" class="docs-section">
+        <h2>Installation</h2>
+        <p>Install the library and its peer dependency:</p>
+        <pre class="docs-code"><code>npm install flexible-date-picker date-fns</code></pre>
+        <p>Build the library from source in this monorepo:</p>
+        <pre class="docs-code"><code>npm run build:lib</code></pre>
+        <p>Import styles in your global stylesheet (required):</p>
+        <pre class="docs-code"><code>@import 'flexible-date-picker/themes/flexible-date-picker.css';</code></pre>
+        <p>Or import the base CSS directly during development:</p>
+        <pre class="docs-code"><code>@import '../flexible-date-picker/src/lib/themes/flexible-date-picker.css';</code></pre>
+      </section>
+
+      <section id="quick-start" class="docs-section">
+        <h2>Quick start</h2>
+        <p>Import a picker as a standalone component and bind it to a form control:</p>
+        <pre class="docs-code"><code>import &#123; Component &#125; from '@angular/core';
+import &#123; FormControl, ReactiveFormsModule &#125; from '@angular/forms';
+import &#123; FlexDatePickerComponent &#125; from 'flexible-date-picker';
+
+@Component(&#123;
+  selector: 'app-demo',
+  imports: [ReactiveFormsModule, FlexDatePickerComponent],
+  template: `
+    &lt;fdp-date-picker
+      [formControl]="dateControl"
+      placeholder="Select date"
+      dateFormat="MMM d, yyyy"
+      [showIcon]="true"
+    /&gt;
+  `,
+&#125;)
+export class DemoComponent &#123;
+  dateControl = new FormControl&lt;Date | null&gt;(null);
+&#125;</code></pre>
+        <p>Template-driven forms work the same way with <code>[(ngModel)]</code>.</p>
+      </section>
+
+      <section id="styling" class="docs-section">
+        <h2>Styling &amp; theming</h2>
+        <p>
+          The library uses CSS custom properties defined in
+          <code>flexible-date-picker-base.css</code>. Toggle dark mode programmatically:
+        </p>
+        <pre class="docs-code"><code>import &#123; FlexThemeService &#125; from 'flexible-date-picker';
+
+constructor(private theme: FlexThemeService) &#123;&#125;
+
+enableDarkMode() &#123;
+  this.theme.setDarkMode(true);
+&#125;</code></pre>
+        <p>Key CSS variables:</p>
+        <div class="docs-table-wrap">
+          <table class="docs-table">
+            <thead>
+              <tr><th>Variable</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>--flex-surface</code></td><td>Popover and input background</td></tr>
+              <tr><td><code>--flex-primary</code></td><td>Selected day, buttons, accents</td></tr>
+              <tr><td><code>--flex-border</code></td><td>Borders and dividers</td></tr>
+              <tr><td><code>--flex-muted-foreground</code></td><td>Secondary text</td></tr>
+              <tr><td><code>--flex-range</code></td><td>In-range highlight background</td></tr>
+              <tr><td><code>--flex-radius</code></td><td>Border radius for panels</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Override any variable in your own CSS. The <code>.dark</code> class or
+          <code>data-flex-theme="dark"</code> attribute on <code>&lt;html&gt;</code> activates the
+          dark palette.
+        </p>
+      </section>
+
+      <section id="components" class="docs-section">
+        <h2>Components overview</h2>
+        <p>
+          Every picker implements <code>ControlValueAccessor</code> and supports
+          <code>disabled</code> via input or form control state. Outputs emit when the committed
+          value changes (on selection or OK for time pickers).
+        </p>
+      </section>
+
+      <section id="date-picker" class="docs-section">
+        <h2>Date picker</h2>
+        <p><strong>Selector:</strong> <code>fdp-date-picker</code></p>
+        <p><strong>Value type:</strong> <code>Date | null</code></p>
+        <div class="docs-table-wrap">
+          <table class="docs-table">
+            <thead>
+              <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>placeholder</code></td><td><code>string</code></td><td><code>'Select date'</code></td><td>Empty-state label</td></tr>
+              <tr><td><code>dateFormat</code></td><td><code>string</code></td><td><code>'MMM d, yyyy'</code></td><td>date-fns display format</td></tr>
+              <tr><td><code>min</code></td><td><code>Date | null</code></td><td><code>null</code></td><td>Earliest selectable date</td></tr>
+              <tr><td><code>max</code></td><td><code>Date | null</code></td><td><code>null</code></td><td>Latest selectable date</td></tr>
+              <tr><td><code>isDateDisabled</code></td><td><code>(date: Date) =&gt; boolean</code></td><td>—</td><td>Custom disabled dates</td></tr>
+              <tr><td><code>time</code></td><td><code>FlexTimeConfig</code></td><td><code>&#123;&#125;</code></td><td>Enable inline time drum</td></tr>
+              <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Disable the trigger</td></tr>
+              <tr><td><code>showIcon</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Show calendar icon</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Output:</strong> <code>dateChange</code> — emits <code>Date | null</code></p>
+        <p>When <code>time.enabled</code> is true, the popover stays open after date selection so the user can adjust time. The popover closes on outside click or Escape.</p>
+        <pre class="docs-code"><code>&lt;fdp-date-picker
+  [formControl]="date"
+  dateFormat="MMM d, yyyy"
+  [time]="&#123; enabled: true, format: 'HH:mm', showSeconds: false &#125;"
+/&gt;</code></pre>
+      </section>
+
+      <section id="date-range-picker" class="docs-section">
+        <h2>Date range picker</h2>
+        <p><strong>Selector:</strong> <code>fdp-date-range-picker</code></p>
+        <p><strong>Value type:</strong> <code>&#123; start: Date | null; end: Date | null &#125;</code></p>
+        <div class="docs-table-wrap">
+          <table class="docs-table">
+            <thead>
+              <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>placeholder</code></td><td><code>string</code></td><td><code>'Select date range'</code></td><td>Empty-state label</td></tr>
+              <tr><td><code>dateFormat</code></td><td><code>string</code></td><td><code>'MMM d, yyyy'</code></td><td>date-fns format</td></tr>
+              <tr><td><code>min</code> / <code>max</code></td><td><code>Date | null</code></td><td><code>null</code></td><td>Bounds for both ends</td></tr>
+              <tr><td><code>isDateDisabled</code></td><td><code>Function</code></td><td>—</td><td>Disable specific dates</td></tr>
+              <tr><td><code>presetSidebar</code></td><td><code>FlexPresetSidebarConfig</code></td><td><code>&#123;&#125;</code></td><td>Preset shortcuts panel</td></tr>
+              <tr><td><code>calendarLayout</code></td><td><code>FlexDateRangeCalendarConfig</code></td><td><code>auto</code></td><td>Single, double, or responsive</td></tr>
+              <tr><td><code>time</code></td><td><code>FlexTimeConfig</code></td><td><code>&#123;&#125;</code></td><td>Start/end time drums</td></tr>
+              <tr><td><code>showIcon</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Calendar icon on trigger</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Output:</strong> <code>rangeChange</code></p>
+        <p>Includes Apply/Cancel action bar. Range is committed on Apply.</p>
+      </section>
+
+      <section id="time-pickers" class="docs-section">
+        <h2>Time pickers</h2>
+        <h3>Time picker — <code>fdp-time-picker</code></h3>
+        <p><strong>Value type:</strong> <code>Date | null</code> (time stored on a reference date)</p>
+        <div class="docs-table-wrap">
+          <table class="docs-table">
+            <thead>
+              <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>timeFormat</code></td><td><code>string</code></td><td><code>'HH:mm'</code></td><td>Display format</td></tr>
+              <tr><td><code>hourStep</code></td><td><code>number</code></td><td><code>1</code></td><td>Hour increment</td></tr>
+              <tr><td><code>minuteStep</code></td><td><code>number</code></td><td><code>1</code></td><td>Minute increment</td></tr>
+              <tr><td><code>secondStep</code></td><td><code>number</code></td><td><code>1</code></td><td>Second increment</td></tr>
+              <tr><td><code>use24Hour</code></td><td><code>boolean</code></td><td><code>true</code></td><td>24h vs 12h + AM/PM column</td></tr>
+              <tr><td><code>showSeconds</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Third drum column</td></tr>
+              <tr><td><code>showIcon</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Clock icon</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Output:</strong> <code>timeChange</code></p>
+
+        <h3>Time range picker — <code>fdp-time-range-picker</code></h3>
+        <p><strong>Value type:</strong> <code>TimeRange</code> — <code>&#123; start: Date | null; end: Date | null &#125;</code></p>
+        <p>Same time inputs as above. Start and end rollers appear side by side. OK/Cancel footer applies the range.</p>
+        <p><strong>Output:</strong> <code>rangeChange</code></p>
+
+        <h3>Roller wheel behavior</h3>
+        <ul class="docs-list">
+          <li>Three visible rows: previous value, selected value, next value</li>
+          <li>Infinite loop — hour 1 shows 23 above and 2 below</li>
+          <li>Scroll or tap to change; OK commits, Cancel reverts draft</li>
+        </ul>
+      </section>
+
+      <section id="month-pickers" class="docs-section">
+        <h2>Month pickers</h2>
+        <h3>Month picker — <code>fdp-month-picker</code></h3>
+        <p><strong>Value type:</strong> <code>Date | null</code> (normalized to first of month)</p>
+        <div class="docs-table-wrap">
+          <table class="docs-table">
+            <thead>
+              <tr><th>Input</th><th>Type</th><th>Default</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>monthFormat</code></td><td><code>string</code></td><td><code>'MMM yyyy'</code></td></tr>
+              <tr><td><code>min</code> / <code>max</code></td><td><code>Date | null</code></td><td><code>null</code></td></tr>
+              <tr><td><code>showIcon</code></td><td><code>boolean</code></td><td><code>true</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Output:</strong> <code>monthChange</code></p>
+
+        <h3>Month range picker — <code>fdp-month-range-picker</code></h3>
+        <p><strong>Value type:</strong> <code>DateRange</code></p>
+        <p><strong>Output:</strong> <code>rangeChange</code></p>
+      </section>
+
+      <section id="year-pickers" class="docs-section">
+        <h2>Year pickers</h2>
+        <h3>Year picker — <code>fdp-year-picker</code></h3>
+        <p><strong>Value type:</strong> <code>Date | null</code> (normalized to Jan 1)</p>
+        <p><strong>Output:</strong> <code>yearChange</code></p>
+
+        <h3>Year range picker — <code>fdp-year-range-picker</code></h3>
+        <p><strong>Value type:</strong> <code>DateRange</code></p>
+        <p><strong>Output:</strong> <code>rangeChange</code></p>
+      </section>
+
+      <section id="configuration" class="docs-section">
+        <h2>Shared configuration</h2>
+
+        <h3>FlexTimeConfig</h3>
+        <p>Used by <code>fdp-date-picker</code> and <code>fdp-date-range-picker</code> via the <code>time</code> input:</p>
+        <pre class="docs-code"><code>interface FlexTimeConfig &#123;
+  enabled?: boolean;       // default false
+  format?: string;         // default 'HH:mm'
+  minuteStep?: number;     // default 1
+  hourStep?: number;       // default 1
+  defaultTime?: &#123; hours: number; minutes: number; seconds?: number &#125;;
+  use24Hour?: boolean;     // default true
+  showSeconds?: boolean;   // default false
+&#125;</code></pre>
+
+        <h3>FlexPresetSidebarConfig</h3>
+        <pre class="docs-code"><code>interface FlexPresetSidebarConfig &#123;
+  enabled?: boolean;         // default true
+  presets?: PresetRange[];   // built-in defaults when omitted
+&#125;
+
+interface PresetRange &#123;
+  id: string;
+  label: string;
+  getRange: (referenceDate?: Date) =&gt; DateRange;
+&#125;</code></pre>
+
+        <h3>FlexDateRangeCalendarConfig</h3>
+        <pre class="docs-code"><code>interface FlexDateRangeCalendarConfig &#123;
+  mode?: 'single' | 'double' | 'auto';  // default 'auto'
+&#125;</code></pre>
+        <ul class="docs-list">
+          <li><code>auto</code> — two months on desktop, one on mobile</li>
+          <li><code>single</code> — always one calendar</li>
+          <li><code>double</code> — always two consecutive months</li>
+        </ul>
+      </section>
+
+      <section id="forms" class="docs-section">
+        <h2>Forms integration</h2>
+        <p>All pickers register as <code>NG_VALUE_ACCESSOR</code> providers.</p>
+        <h3>Reactive forms</h3>
+        <pre class="docs-code"><code>readonly range = new FormControl&lt;DateRange&gt;(&#123;
+  start: null,
+  end: null,
+&#125;);
+
+&lt;fdp-date-range-picker [formControl]="range" /&gt;</code></pre>
+        <h3>Template-driven</h3>
+        <pre class="docs-code"><code>&lt;fdp-date-picker [(ngModel)]="selectedDate" name="date" /&gt;</code></pre>
+        <h3>Validation</h3>
+        <p>
+          Use standard Angular validators on the form control. The date picker reactive example in
+          the playground uses <code>Validators.required</code>.
+        </p>
+      </section>
+
+      <section id="locale-rtl" class="docs-section">
+        <h2>Locale &amp; RTL</h2>
+        <pre class="docs-code"><code>import &#123; FlexLocaleService &#125; from 'flexible-date-picker';
+
+constructor(private locale: FlexLocaleService) &#123;&#125;
+
+setFrench() &#123;
+  this.locale.setLocale('fr');
+&#125;
+
+setArabic() &#123;
+  this.locale.setLocale('ar');
+  document.documentElement.dir = 'rtl';
+&#125;</code></pre>
+        <p>
+          Weekday labels and calendar layout respect the configured locale. Set
+          <code>dir="rtl"</code> on <code>&lt;html&gt;</code> for right-to-left trigger alignment.
+        </p>
+      </section>
+
+      <section id="headless-engines" class="docs-section">
+        <h2>Headless engines</h2>
+        <p>
+          Build custom UIs or unit-test selection logic without rendering components. Engines live
+          under <code>flexible-date-picker</code> public API:
+        </p>
+        <ul class="docs-list">
+          <li><code>createDatePickerEngine()</code></li>
+          <li><code>createDateRangePickerEngine()</code></li>
+          <li><code>createTimePickerEngine()</code></li>
+          <li><code>createTimeRangePickerEngine()</code></li>
+          <li><code>createMonthPickerEngine()</code></li>
+          <li><code>createMonthRangePickerEngine()</code></li>
+          <li><code>createYearPickerEngine()</code></li>
+          <li><code>createYearRangePickerEngine()</code></li>
+        </ul>
+        <p>Each engine exposes <code>state</code>, <code>actions</code>, and <code>selectors</code> for calendar grids, validation, and open/close lifecycle.</p>
+        <pre class="docs-code"><code>import &#123; createDatePickerEngine &#125; from 'flexible-date-picker';
+
+const engine = createDatePickerEngine(&#123; weekStartsOn: 1 &#125;);
+engine.actions.open();
+engine.actions.selectDate(new Date(2026, 4, 13));
+console.log(engine.state.value);</code></pre>
+      </section>
+
+      <section id="services" class="docs-section">
+        <h2>Services</h2>
+        <div class="docs-table-wrap">
+          <table class="docs-table">
+            <thead>
+              <tr><th>Service</th><th>Purpose</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>FlexThemeService</code></td><td>Toggle light/dark mode on document root</td></tr>
+              <tr><td><code>FlexLocaleService</code></td><td>Set locale code and week start day</td></tr>
+              <tr><td><code>FlexOverlayService</code></td><td>Focus trap, outside click, overlay placement</td></tr>
+              <tr><td><code>PickerEngineBridgeService</code></td><td>Signal bridge for engine ↔ component sync</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="accessibility" class="docs-section">
+        <h2>Accessibility</h2>
+        <ul class="docs-list">
+          <li>Trigger buttons expose <code>aria-expanded</code> and <code>aria-haspopup="dialog"</code></li>
+          <li>Popover panels use <code>role="dialog"</code> with accessible names</li>
+          <li>Calendar grids use semantic day buttons; time drums use <code>role="listbox"</code></li>
+          <li>Keyboard: Escape closes popover; Tab is trapped inside open dialogs</li>
+          <li>Focus returns to logical targets on dismiss</li>
+        </ul>
+      </section>
+
+      <section id="api-reference" class="docs-section">
+        <h2>API reference</h2>
+        <p>Full public exports from <code>flexible-date-picker</code>:</p>
+        <h3>Components</h3>
+        <pre class="docs-code"><code>FlexDatePickerComponent
+FlexDateRangePickerComponent
+FlexTimePickerComponent
+FlexTimeRangePickerComponent
+FlexMonthPickerComponent
+FlexMonthRangePickerComponent
+FlexYearPickerComponent
+FlexYearRangePickerComponent</code></pre>
+        <h3>Types &amp; models</h3>
+        <pre class="docs-code"><code>DateRange, TimeRange, FlexTimeConfig
+FlexPresetSidebarConfig, FlexDateRangeCalendarConfig
+PresetRange, CalendarMonth, CalendarDay
+Granularity, WeekStart, LocaleCode</code></pre>
+        <h3>Utilities</h3>
+        <pre class="docs-code"><code>normalizeDate, mergeDateAndTime, getTimeParts
+generateHourOptions, generateMinuteOptions
+getWeekdayLabels, buildLoopedOptions</code></pre>
+      </section>
+
+      <section id="development" class="docs-section">
+        <h2>Development</h2>
+        <div class="docs-table-wrap">
+          <table class="docs-table">
+            <thead>
+              <tr><th>Command</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>npm start</code></td><td>Run playground dev server</td></tr>
+              <tr><td><code>npm run build:lib</code></td><td>Build the library</td></tr>
+              <tr><td><code>npm test</code></td><td>Run library unit tests (Karma)</td></tr>
+              <tr><td><code>npm run test:e2e</code></td><td>Run Playwright e2e tests</td></tr>
+              <tr><td><code>npm run storybook</code></td><td>Component stories</td></tr>
+              <tr><td><code>npm run build</code></td><td>Build playground (SSR)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </article>
+  </div>
+</main>

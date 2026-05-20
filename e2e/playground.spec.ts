@@ -17,7 +17,19 @@ test.describe('FlexibleDatePicker playground', () => {
 
   test('toggles dark mode', async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('button', { name: 'Dark mode' }).click();
+    await page.getByRole('button', { name: 'Switch to dark mode' }).click();
     await expect(page.locator('html.dark')).toBeVisible();
+  });
+
+  test('loads features page', async ({ page }) => {
+    await page.goto('/features');
+    await expect(page.getByRole('heading', { name: /Everything you need for date/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Core features' })).toBeVisible();
+  });
+
+  test('loads documentation page', async ({ page }) => {
+    await page.goto('/docs');
+    await expect(page.getByRole('heading', { name: 'Documentation' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Date picker' })).toBeVisible();
   });
 });
