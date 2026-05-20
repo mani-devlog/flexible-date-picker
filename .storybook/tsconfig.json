@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/storybook",
+    "types": []
+  },
+  "include": [
+    "../projects/flexible-date-picker/src/**/*.stories.ts",
+    "./preview.ts",
+    "./main.ts"
+  ],
+  "exclude": ["../projects/**/node_modules"]
+}

@@ -1,0 +1,19 @@
+@import 'tailwindcss';
+@import './flexible-date-picker-base.css';
+
+@theme {
+  --color-flex-surface: var(--flex-surface);
+  --color-flex-surface-elevated: var(--flex-surface-elevated);
+  --color-flex-border: var(--flex-border);
+  --color-flex-primary: var(--flex-primary);
+  --color-flex-primary-foreground: var(--flex-primary-foreground);
+  --color-flex-muted: var(--flex-muted);
+  --color-flex-muted-foreground: var(--flex-muted-foreground);
+  --color-flex-accent: var(--flex-accent);
+  --color-flex-accent-foreground: var(--flex-accent-foreground);
+  --color-flex-range: var(--flex-range);
+  --color-flex-today: var(--flex-today);
+  --color-flex-disabled: var(--flex-disabled);
+  --radius-flex: var(--flex-radius);
+  --shadow-flex: var(--flex-shadow);
+}

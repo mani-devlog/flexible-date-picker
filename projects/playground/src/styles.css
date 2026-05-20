@@ -1,0 +1,128 @@
+@import 'tailwindcss';
+@import '../../flexible-date-picker/src/lib/themes/flexible-date-picker.css';
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  background: var(--flex-surface-elevated);
+  color: var(--flex-muted-foreground);
+}
+
+.playground {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.playground-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.playground-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .playground-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.playground-card {
+  background: var(--flex-surface);
+  border: 1px solid var(--flex-border);
+  border-radius: var(--flex-radius);
+  padding: 1.25rem;
+  box-shadow: var(--flex-shadow);
+}
+
+.playground-card h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: inherit;
+}
+
+.playground-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.playground-controls label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.playground-config {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.playground-config label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.playground-config select,
+.playground-config input[type='text'] {
+  padding: 0.375rem 0.75rem;
+  border-radius: calc(var(--flex-radius) - 0.25rem);
+  border: 1px solid var(--flex-border);
+  background: var(--flex-surface);
+  font-size: 0.875rem;
+  color: inherit;
+}
+
+.playground-controls select,
+.playground-controls button {
+  padding: 0.375rem 0.75rem;
+  border-radius: calc(var(--flex-radius) - 0.25rem);
+  border: 1px solid var(--flex-border);
+  background: var(--flex-surface);
+  font-size: 0.875rem;
+}
+
+.playground-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.playground-checkbox input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--flex-primary);
+}
+
+.playground-restrictions {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--flex-muted-foreground);
+}
+
+.playground-value {
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--flex-muted-foreground);
+}
+
+[dir='rtl'] .flex-picker-trigger {
+  text-align: right;
+}

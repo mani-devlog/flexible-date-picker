@@ -1,0 +1,11 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/flexible-date-picker",
+  "lib": {
+    "entryFile": "src/public-api.ts"
+  },
+  "assets": [
+    "./src/lib/themes/flexible-date-picker.css",
+    "./src/lib/themes/flexible-date-picker-base.css"
+  ]
+}

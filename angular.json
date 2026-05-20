@@ -3,5 +3,155 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "flexible-date-picker": {
+      "projectType": "library",
+      "root": "projects/flexible-date-picker",
+      "sourceRoot": "projects/flexible-date-picker/src",
+      "prefix": "flex",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/flexible-date-picker/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/flexible-date-picker/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/flexible-date-picker/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "browsers": "ChromeHeadless"
+          }
+        }
+      }
+    },
+    "playground": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/playground",
+      "sourceRoot": "projects/playground/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/playground/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/playground/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/playground/public"
+              }
+            ],
+            "styles": [
+              "projects/playground/src/styles.css"
+            ],
+            "server": "projects/playground/src/main.server.ts",
+            "outputMode": "server",
+            "security": {
+              "allowedHosts": []
+            },
+            "ssr": {
+              "entry": "projects/playground/src/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "playground:build:production"
+            },
+            "development": {
+              "buildTarget": "playground:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/playground/tsconfig.spec.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/playground/public"
+              }
+            ],
+            "styles": [
+              "projects/playground/src/styles.css"
+            ]
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": ".storybook",
+            "browserTarget": "playground:build:development",
+            "compodoc": false,
+            "port": 6006,
+            "tsConfig": ".storybook/tsconfig.json",
+            "styles": [
+              "projects/flexible-date-picker/src/lib/themes/flexible-date-picker-base.css"
+            ]
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": ".storybook",
+            "browserTarget": "playground:build:development",
+            "outputDir": "storybook-static",
+            "compodoc": false,
+            "tsConfig": ".storybook/tsconfig.json",
+            "styles": [
+              "projects/flexible-date-picker/src/lib/themes/flexible-date-picker-base.css"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "8fe235d9-5621-4f6b-9913-2eaeed601e9e"
   }
 }
