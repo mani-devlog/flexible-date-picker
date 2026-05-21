@@ -42,7 +42,7 @@ export class FeaturesComponent {
     {
       title: 'Headless engines',
       description:
-        'Pure TypeScript selection engines power every picker. Use them for custom UI, Storybook demos, or unit tests without the DOM.',
+        'Pure TypeScript selection engines power every picker. Use them for custom UI or testable selection logic without the DOM.',
       icon: 'engine',
     },
     {
@@ -121,6 +121,6 @@ export class FeaturesComponent {
     'Mobile-friendly bottom sheet on small viewports',
     'Configurable placeholders, formats, and calendar icons',
     'Weekend blocking and custom isDateDisabled callbacks',
-    'Storybook stories and Playwright e2e coverage',
+    'Typed configuration models for time, presets, and calendar layout',
   ];
 }

@@ -254,21 +254,6 @@ Available factories: `createDatePickerEngine`, `createDateRangePickerEngine`, `c
 - Calendar grids and time drums use semantic roles
 - Keyboard: Escape closes; Tab trapped inside open dialogs
 
-## Publishing (maintainers)
-
-See [docs/PUBLISHING.md](../../docs/PUBLISHING.md) for the full build and npm publish process.
-
-## Development
-
-Clone the repository and run the playground:
-
-```bash
-npm install
-npm start              # playground dev server
-npm run build:lib      # build library
-npm test               # unit tests
-```
-
 ## License
 
 See the repository for license information.

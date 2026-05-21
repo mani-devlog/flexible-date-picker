@@ -7,7 +7,7 @@ import {
 import express from 'express';
 import { join } from 'node:path';
 
-const browserDistFolder = join(import.meta.dirname, '../../../docs/browser');
+const browserDistFolder = join(import.meta.dirname, '../../../docs');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
@@ -25,7 +25,7 @@ const angularApp = new AngularNodeAppEngine();
  */
 
 /**
- * Serve static files from /docs/browser
+ * Serve static files from /docs
  */
 app.use(
   express.static(browserDistFolder, {

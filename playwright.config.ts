@@ -12,7 +12,7 @@ export default defineConfig({
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'], channel: 'chrome' } }],
   webServer: {
-    command: 'npx serve docs/browser -l 4200',
+    command: 'npx serve docs -l 4200',
     url: 'http://localhost:4200',
     reuseExistingServer: !process.env['CI'],
   },

@@ -22,7 +22,6 @@
           <li><a routerLink="." fragment="services">Services</a></li>
           <li><a routerLink="." fragment="accessibility">Accessibility</a></li>
           <li><a routerLink="." fragment="api-reference">API reference</a></li>
-          <li><a routerLink="." fragment="development">Development</a></li>
         </ul>
       </nav>
     </aside>
@@ -96,12 +95,8 @@
         <h2>Installation</h2>
         <p>Install the library and its peer dependency:</p>
         <pre class="docs-code"><code>npm install ngx-flexible-date-picker date-fns</code></pre>
-        <p>Build the library from source in this monorepo:</p>
-        <pre class="docs-code"><code>npm run build:lib</code></pre>
         <p>Import styles in your global stylesheet (required):</p>
         <pre class="docs-code"><code>@import 'ngx-flexible-date-picker/themes/flexible-date-picker.css';</code></pre>
-        <p>Or import the base CSS directly during development:</p>
-        <pre class="docs-code"><code>@import '../node_modules/ngx-flexible-date-picker/themes/flexible-date-picker.css';</code></pre>
       </section>
 
       <section id="quick-start" class="docs-section">
@@ -449,25 +444,6 @@ Granularity, WeekStart, LocaleCode</code></pre>
         <pre class="docs-code"><code>normalizeDate, mergeDateAndTime, getTimeParts
 generateHourOptions, generateMinuteOptions
 getWeekdayLabels, buildLoopedOptions</code></pre>
-      </section>
-
-      <section id="development" class="docs-section">
-        <h2>Development</h2>
-        <div class="docs-table-wrap">
-          <table class="docs-table">
-            <thead>
-              <tr><th>Command</th><th>Description</th></tr>
-            </thead>
-            <tbody>
-              <tr><td><code>npm start</code></td><td>Run playground dev server</td></tr>
-              <tr><td><code>npm run build:lib</code></td><td>Build the library</td></tr>
-              <tr><td><code>npm test</code></td><td>Run library unit tests (Karma)</td></tr>
-              <tr><td><code>npm run test:e2e</code></td><td>Run Playwright e2e tests</td></tr>
-              <tr><td><code>npm run storybook</code></td><td>Component stories</td></tr>
-              <tr><td><code>npm run build</code></td><td>Build playground (SSR)</td></tr>
-            </tbody>
-          </table>
-        </div>
       </section>
     </article>
   </div>
