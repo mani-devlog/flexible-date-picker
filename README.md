@@ -11,7 +11,7 @@ Browse the [live documentation and examples](https://mani-devlog.github.io/flexi
 Install from npm:
 
 ```bash
-npm install ngx-flexible-date-picker date-fns
+npm install @manidev/ngx-flexible-date-picker date-fns
 ```
 
 See [projects/flexible-date-picker/README.md](projects/flexible-date-picker/README.md) for the full package guide.

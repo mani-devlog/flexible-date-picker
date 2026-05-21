@@ -1,4 +1,4 @@
-# ngx-flexible-date-picker
+# @manidev/ngx-flexible-date-picker
 
 Flexible date and time pickers for **Angular 20+**. Eight standalone components (date, time, month, year — single and range), headless selection engines, reactive forms support, light/dark theming, and locale/RTL layout.
 
@@ -15,13 +15,13 @@ Built with [date-fns](https://date-fns.org/) for formatting and calendar math.
 ## Installation
 
 ```bash
-npm install ngx-flexible-date-picker date-fns
+npm install @manidev/ngx-flexible-date-picker date-fns
 ```
 
 Import the stylesheet in your global styles (required):
 
 ```css
-@import 'ngx-flexible-date-picker/themes/flexible-date-picker.css';
+@import '@manidev/ngx-flexible-date-picker/themes/flexible-date-picker.css';
 ```
 
 ## Quick start
@@ -31,7 +31,7 @@ Import a picker as a standalone component and bind it with reactive forms:
 ```typescript
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FlexDatePickerComponent } from 'ngx-flexible-date-picker';
+import { FlexDatePickerComponent } from '@manidev/ngx-flexible-date-picker';
 
 @Component({
   selector: 'app-demo',
@@ -184,7 +184,7 @@ The library ships CSS custom properties in `flexible-date-picker-base.css`.
 ### Global theme
 
 ```typescript
-import { FlexThemeService } from 'ngx-flexible-date-picker';
+import { FlexThemeService } from '@manidev/ngx-flexible-date-picker';
 
 constructor(private theme: FlexThemeService) {}
 
@@ -239,7 +239,7 @@ Common variables: `--flex-surface`, `--flex-primary`, `--flex-border`, `--flex-m
 ## Locale & RTL
 
 ```typescript
-import { FlexLocaleService } from 'ngx-flexible-date-picker';
+import { FlexLocaleService } from '@manidev/ngx-flexible-date-picker';
 
 constructor(private locale: FlexLocaleService) {}
 
@@ -258,7 +258,7 @@ setArabic() {
 Use selection logic without the DOM — ideal for custom UIs or unit tests:
 
 ```typescript
-import { createDatePickerEngine } from 'ngx-flexible-date-picker';
+import { createDatePickerEngine } from '@manidev/ngx-flexible-date-picker';
 
 const engine = createDatePickerEngine({ weekStartsOn: 1 });
 engine.actions.open();

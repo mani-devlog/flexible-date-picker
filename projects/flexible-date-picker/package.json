@@ -1,12 +1,39 @@
 {
-  "name": "ngx-flexible-date-picker",
+  "name": "@manidev/ngx-flexible-date-picker",
   "version": "0.0.1",
+  "description": "Flexible date and time pickers for Angular 20+",
+  "keywords": [
+    "angular",
+    "datepicker",
+    "date-picker",
+    "time-picker",
+    "timepicker",
+    "datetime",
+    "calendar",
+    "month-picker",
+    "year-picker",
+    "date-range",
+    "range-picker",
+    "reactive-forms"
+  ],
+  "license": "MIT",
+  "author": "Manikandan <elderwandakamani@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mani-devlog/flexible-date-picker.git",
+    "directory": "projects/flexible-date-picker"
+  },
+  "homepage": "https://mani-devlog.github.io/flexible-date-picker/",
+  "bugs": {
+    "url": "https://github.com/mani-devlog/flexible-date-picker/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "@angular/common": "^20.3.0",
-    "@angular/core": "^20.3.0"
-  },
-  "dependencies": {
-    "tslib": "^2.3.0"
-  },
-  "sideEffects": false
+    "@angular/core": "^20.3.0",
+    "@angular/forms": "^20.3.0",
+    "date-fns": "^4.0.0"
+  }
 }

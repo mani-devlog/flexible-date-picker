@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { FlexLocaleService, FlexThemeService } from 'ngx-flexible-date-picker';
+import { FlexLocaleService, FlexThemeService } from '@manidev/ngx-flexible-date-picker';
 
 @Component({
   selector: 'app-root',

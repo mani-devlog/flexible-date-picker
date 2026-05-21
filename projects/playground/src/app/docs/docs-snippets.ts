@@ -1,11 +1,11 @@
 export const docsSnippets = {
-  install: 'npm install ngx-flexible-date-picker date-fns',
+  install: 'npm install @manidev/ngx-flexible-date-picker date-fns',
 
-  stylesImport: "@import 'ngx-flexible-date-picker/themes/flexible-date-picker.css';",
+  stylesImport: "@import '@manidev/ngx-flexible-date-picker/themes/flexible-date-picker.css';",
 
   quickStart: `import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FlexDatePickerComponent } from 'ngx-flexible-date-picker';
+import { FlexDatePickerComponent } from '@manidev/ngx-flexible-date-picker';
 
 @Component({
   selector: 'app-demo',
@@ -23,7 +23,7 @@ export class DemoComponent {
   dateControl = new FormControl<Date | null>(null);
 }`,
 
-  themeService: `import { FlexThemeService } from 'ngx-flexible-date-picker';
+  themeService: `import { FlexThemeService } from '@manidev/ngx-flexible-date-picker';
 
 constructor(private theme: FlexThemeService) {}
 
@@ -104,7 +104,7 @@ interface PresetRange {
 
   templateDriven: `<fdp-date-picker [(ngModel)]="selectedDate" name="date" />`,
 
-  localeService: `import { FlexLocaleService } from 'ngx-flexible-date-picker';
+  localeService: `import { FlexLocaleService } from '@manidev/ngx-flexible-date-picker';
 
 constructor(private locale: FlexLocaleService) {}
 
@@ -117,7 +117,7 @@ setArabic() {
   document.documentElement.dir = 'rtl';
 }`,
 
-  headlessEngine: `import { createDatePickerEngine } from 'ngx-flexible-date-picker';
+  headlessEngine: `import { createDatePickerEngine } from '@manidev/ngx-flexible-date-picker';
 
 const engine = createDatePickerEngine({ weekStartsOn: 1 });
 engine.actions.open();
@@ -156,5 +156,5 @@ getWeekdayLabels, buildLoopedOptions`,
   FlexTimePickerComponent,
   FlexThemeService,
   FlexLocaleService,
-} from 'ngx-flexible-date-picker';`,
+} from '@manidev/ngx-flexible-date-picker';`,
 } as const;

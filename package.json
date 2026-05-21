@@ -1,12 +1,15 @@
 {
   "name": "flexible-date-picker",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve playground",
     "build": "ng build playground",
     "postbuild": "rm -rf docs/* && mv dist/playground/browser/* docs/",
     "build:lib": "ng build flexible-date-picker",
+    "pack:lib": "npm run build:lib && cd dist/flexible-date-picker && npm pack --dry-run",
+    "publish:lib": "npm test && npm run build:lib && cd dist/flexible-date-picker && npm publish --access public",
+    "publish:lib:beta": "npm test && npm run build:lib && cd dist/flexible-date-picker && npm publish --access public --tag beta",
     "watch": "ng build flexible-date-picker --watch --configuration development",
     "test": "ng test flexible-date-picker --no-watch --browsers=ChromeHeadless",
     "test:playground": "ng test playground --no-watch --browsers=ChromeHeadless",

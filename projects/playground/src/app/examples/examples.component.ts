@@ -24,7 +24,7 @@ import {
   type FlexTimeConfig,
   type PresetRange,
   type TimeRange,
-} from 'ngx-flexible-date-picker';
+} from '@manidev/ngx-flexible-date-picker';
 import { subDays } from 'date-fns';
 
 interface BaseDatePlaygroundConfig {
