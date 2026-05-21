@@ -94,33 +94,30 @@
       <section id="installation" class="docs-section">
         <h2>Installation</h2>
         <p>Install the library and its peer dependency:</p>
-        <pre class="docs-code"><code>npm install ngx-flexible-date-picker date-fns</code></pre>
+        <app-code-block
+          label="Installation"
+          filename="terminal"
+          language="shell"
+          [code]="snippets.install"
+        />
         <p>Import styles in your global stylesheet (required):</p>
-        <pre class="docs-code"><code>@import 'ngx-flexible-date-picker/themes/flexible-date-picker.css';</code></pre>
+        <app-code-block
+          label="Implementation Code"
+          filename="styles.css"
+          language="css"
+          [code]="snippets.stylesImport"
+        />
       </section>
 
       <section id="quick-start" class="docs-section">
         <h2>Quick start</h2>
         <p>Import a picker as a standalone component and bind it to a form control:</p>
-        <pre class="docs-code"><code>import &#123; Component &#125; from '@angular/core';
-import &#123; FormControl, ReactiveFormsModule &#125; from '@angular/forms';
-import &#123; FlexDatePickerComponent &#125; from 'ngx-flexible-date-picker';
-
-@Component(&#123;
-  selector: 'app-demo',
-  imports: [ReactiveFormsModule, FlexDatePickerComponent],
-  template: `
-    &lt;fdp-date-picker
-      [formControl]="dateControl"
-      placeholder="Select date"
-      dateFormat="MMM d, yyyy"
-      [showIcon]="true"
-    /&gt;
-  `,
-&#125;)
-export class DemoComponent &#123;
-  dateControl = new FormControl&lt;Date | null&gt;(null);
-&#125;</code></pre>
+        <app-code-block
+          label="Implementation Code"
+          filename="demo.component.ts"
+          language="typescript"
+          [code]="snippets.quickStart"
+        />
         <p>Template-driven forms work the same way with <code>[(ngModel)]</code>.</p>
       </section>
 
@@ -130,13 +127,12 @@ export class DemoComponent &#123;
           The library uses CSS custom properties defined in
           <code>flexible-date-picker-base.css</code>. Toggle dark mode programmatically:
         </p>
-        <pre class="docs-code"><code>import &#123; FlexThemeService &#125; from 'ngx-flexible-date-picker';
-
-constructor(private theme: FlexThemeService) &#123;&#125;
-
-enableDarkMode() &#123;
-  this.theme.setDarkMode(true);
-&#125;</code></pre>
+        <app-code-block
+          label="Implementation Code"
+          filename="theme.service.ts"
+          language="typescript"
+          [code]="snippets.themeService"
+        />
         <p>Key CSS variables:</p>
         <div class="docs-table-wrap">
           <table class="docs-table">
@@ -144,12 +140,30 @@ enableDarkMode() &#123;
               <tr><th>Variable</th><th>Description</th></tr>
             </thead>
             <tbody>
-              <tr><td><code>--flex-surface</code></td><td>Popover and input background</td></tr>
-              <tr><td><code>--flex-primary</code></td><td>Selected day, buttons, accents</td></tr>
-              <tr><td><code>--flex-border</code></td><td>Borders and dividers</td></tr>
-              <tr><td><code>--flex-muted-foreground</code></td><td>Secondary text</td></tr>
-              <tr><td><code>--flex-range</code></td><td>In-range highlight background</td></tr>
-              <tr><td><code>--flex-radius</code></td><td>Border radius for panels</td></tr>
+              <tr>
+                <td><code>--flex-surface</code></td>
+                <td>Background for popover panels, inputs, and elevated surfaces. Default light: white; dark: slate.</td>
+              </tr>
+              <tr>
+                <td><code>--flex-primary</code></td>
+                <td>Accent color for selected days, primary buttons, focus rings, and active states.</td>
+              </tr>
+              <tr>
+                <td><code>--flex-border</code></td>
+                <td>Border and divider color for panels, inputs, and calendar grids.</td>
+              </tr>
+              <tr>
+                <td><code>--flex-muted-foreground</code></td>
+                <td>Secondary text color for labels, weekday headers, and inactive drum values.</td>
+              </tr>
+              <tr>
+                <td><code>--flex-range</code></td>
+                <td>Background highlight for in-range days between start and end in range pickers.</td>
+              </tr>
+              <tr>
+                <td><code>--flex-radius</code></td>
+                <td>Base border radius (CSS length) applied to panels, buttons, and inputs.</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -179,24 +193,78 @@ enableDarkMode() &#123;
               <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
             </thead>
             <tbody>
-              <tr><td><code>placeholder</code></td><td><code>string</code></td><td><code>'Select date'</code></td><td>Empty-state label</td></tr>
-              <tr><td><code>dateFormat</code></td><td><code>string</code></td><td><code>'MMM d, yyyy'</code></td><td>date-fns display format</td></tr>
-              <tr><td><code>min</code></td><td><code>Date | null</code></td><td><code>null</code></td><td>Earliest selectable date</td></tr>
-              <tr><td><code>max</code></td><td><code>Date | null</code></td><td><code>null</code></td><td>Latest selectable date</td></tr>
-              <tr><td><code>isDateDisabled</code></td><td><code>(date: Date) =&gt; boolean</code></td><td>—</td><td>Custom disabled dates</td></tr>
-              <tr><td><code>time</code></td><td><code>FlexTimeConfig</code></td><td><code>&#123;&#125;</code></td><td>Enable inline time drum</td></tr>
-              <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Disable the trigger</td></tr>
-              <tr><td><code>showIcon</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Show calendar icon</td></tr>
+              <tr>
+                <td><code>placeholder</code></td>
+                <td><code>string</code></td>
+                <td><code>'Select date'</code></td>
+                <td>Trigger label when no date is selected. Any string; shown in the closed input.</td>
+              </tr>
+              <tr>
+                <td><code>dateFormat</code></td>
+                <td><code>string</code></td>
+                <td><code>'MMM d, yyyy'</code></td>
+                <td>
+                  date-fns format token for the trigger display. Examples:
+                  <code>'yyyy-MM-dd'</code>, <code>'PP'</code>, <code>'EEEE, MMM d'</code>.
+                  See the
+                  <a href="https://date-fns.org/docs/format" target="_blank" rel="noopener noreferrer">date-fns format docs</a>.
+                </td>
+              </tr>
+              <tr>
+                <td><code>min</code></td>
+                <td><code>Date | null</code></td>
+                <td><code>null</code></td>
+                <td>Earliest selectable calendar day (inclusive). Days before this are disabled. Use <code>null</code> for no lower bound.</td>
+              </tr>
+              <tr>
+                <td><code>max</code></td>
+                <td><code>Date | null</code></td>
+                <td><code>null</code></td>
+                <td>Latest selectable calendar day (inclusive). Days after this are disabled. Use <code>null</code> for no upper bound.</td>
+              </tr>
+              <tr>
+                <td><code>isDateDisabled</code></td>
+                <td><code>(date: Date) =&gt; boolean</code></td>
+                <td>—</td>
+                <td>
+                  Optional callback to disable individual dates. Return <code>true</code> to block a day
+                  (e.g. weekends: <code>date.getDay() === 0 || date.getDay() === 6</code>).
+                  Runs in addition to <code>min</code>/<code>max</code>.
+                </td>
+              </tr>
+              <tr>
+                <td><code>time</code></td>
+                <td><code>FlexTimeConfig</code></td>
+                <td><code>&#123;&#125;</code></td>
+                <td>
+                  Inline time drum config. Set <code>enabled: true</code> to show hour/minute rollers after
+                  picking a date. Supports <code>format</code>, <code>hourStep</code>, <code>minuteStep</code>,
+                  <code>use24Hour</code>, <code>showSeconds</code>, and <code>defaultTime</code>.
+                </td>
+              </tr>
+              <tr>
+                <td><code>disabled</code></td>
+                <td><code>boolean</code></td>
+                <td><code>false</code></td>
+                <td>When <code>true</code>, the trigger button is non-interactive. Also respects reactive form disabled state.</td>
+              </tr>
+              <tr>
+                <td><code>showIcon</code></td>
+                <td><code>boolean</code></td>
+                <td><code>true</code></td>
+                <td>Show (<code>true</code>) or hide (<code>false</code>) the calendar icon on the trigger.</td>
+              </tr>
             </tbody>
           </table>
         </div>
         <p><strong>Output:</strong> <code>dateChange</code> — emits <code>Date | null</code></p>
         <p>When <code>time.enabled</code> is true, the popover stays open after date selection so the user can adjust time. The popover closes on outside click or Escape.</p>
-        <pre class="docs-code"><code>&lt;fdp-date-picker
-  [formControl]="date"
-  dateFormat="MMM d, yyyy"
-  [time]="&#123; enabled: true, format: 'HH:mm', showSeconds: false &#125;"
-/&gt;</code></pre>
+        <app-code-block
+          label="Implementation Code"
+          filename="app.component.html"
+          language="html"
+          [code]="snippets.datePickerHtml"
+        />
       </section>
 
       <section id="date-range-picker" class="docs-section">
@@ -209,14 +277,82 @@ enableDarkMode() &#123;
               <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
             </thead>
             <tbody>
-              <tr><td><code>placeholder</code></td><td><code>string</code></td><td><code>'Select date range'</code></td><td>Empty-state label</td></tr>
-              <tr><td><code>dateFormat</code></td><td><code>string</code></td><td><code>'MMM d, yyyy'</code></td><td>date-fns format</td></tr>
-              <tr><td><code>min</code> / <code>max</code></td><td><code>Date | null</code></td><td><code>null</code></td><td>Bounds for both ends</td></tr>
-              <tr><td><code>isDateDisabled</code></td><td><code>Function</code></td><td>—</td><td>Disable specific dates</td></tr>
-              <tr><td><code>presetSidebar</code></td><td><code>FlexPresetSidebarConfig</code></td><td><code>&#123;&#125;</code></td><td>Preset shortcuts panel</td></tr>
-              <tr><td><code>calendarLayout</code></td><td><code>FlexDateRangeCalendarConfig</code></td><td><code>auto</code></td><td>Single, double, or responsive</td></tr>
-              <tr><td><code>time</code></td><td><code>FlexTimeConfig</code></td><td><code>&#123;&#125;</code></td><td>Start/end time drums</td></tr>
-              <tr><td><code>showIcon</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Calendar icon on trigger</td></tr>
+              <tr>
+                <td><code>placeholder</code></td>
+                <td><code>string</code></td>
+                <td><code>'Select date range'</code></td>
+                <td>Trigger label when start or end is unset. Any string.</td>
+              </tr>
+              <tr>
+                <td><code>dateFormat</code></td>
+                <td><code>string</code></td>
+                <td><code>'MMM d, yyyy'</code></td>
+                <td>
+                  date-fns format for both range endpoints in the trigger.
+                  Examples: <code>'MMM d, yyyy'</code>, <code>'yyyy-MM-dd'</code>, <code>'PP'</code>.
+                </td>
+              </tr>
+              <tr>
+                <td><code>min</code> / <code>max</code></td>
+                <td><code>Date | null</code></td>
+                <td><code>null</code></td>
+                <td>
+                  Inclusive bounds applied to both start and end selection.
+                  <code>null</code> means no bound. Individual days outside the range are not selectable.
+                </td>
+              </tr>
+              <tr>
+                <td><code>isDateDisabled</code></td>
+                <td><code>(date: Date) =&gt; boolean</code></td>
+                <td>—</td>
+                <td>
+                  Optional per-day disable callback. Return <code>true</code> to block a date from either
+                  end of the range. Combined with <code>min</code>/<code>max</code> constraints.
+                </td>
+              </tr>
+              <tr>
+                <td><code>presetSidebar</code></td>
+                <td><code>FlexPresetSidebarConfig</code></td>
+                <td><code>&#123;&#125;</code></td>
+                <td>
+                  Shortcut sidebar config. <code>enabled</code>: <code>true</code> (default) or <code>false</code>.
+                  <code>presets</code>: custom <code>PresetRange[]</code>, omit for built-ins
+                  (Today, Yesterday, Last 7 Days, Last 30 Days, This Month, Previous Month, This Year),
+                  or pass <code>[]</code> to hide all presets.
+                </td>
+              </tr>
+              <tr>
+                <td><code>calendarLayout</code></td>
+                <td><code>FlexDateRangeCalendarConfig</code></td>
+                <td><code>&#123; mode: 'auto' &#125;</code></td>
+                <td>
+                  Number of month panels. <code>mode</code> values:
+                  <code>'auto'</code> — two months on desktop, one on mobile (default);
+                  <code>'single'</code> — always one month;
+                  <code>'double'</code> — always two consecutive months.
+                </td>
+              </tr>
+              <tr>
+                <td><code>time</code></td>
+                <td><code>FlexTimeConfig</code></td>
+                <td><code>&#123;&#125;</code></td>
+                <td>
+                  Optional start/end time drums shown below the calendars when <code>enabled: true</code>.
+                  Same options as single date picker time config; applied separately to range start and end.
+                </td>
+              </tr>
+              <tr>
+                <td><code>disabled</code></td>
+                <td><code>boolean</code></td>
+                <td><code>false</code></td>
+                <td>Disables the trigger and popover when <code>true</code>. Honors form control disabled state.</td>
+              </tr>
+              <tr>
+                <td><code>showIcon</code></td>
+                <td><code>boolean</code></td>
+                <td><code>true</code></td>
+                <td>Show (<code>true</code>) or hide (<code>false</code>) the calendar icon on the trigger.</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -234,13 +370,70 @@ enableDarkMode() &#123;
               <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
             </thead>
             <tbody>
-              <tr><td><code>timeFormat</code></td><td><code>string</code></td><td><code>'HH:mm'</code></td><td>Display format</td></tr>
-              <tr><td><code>hourStep</code></td><td><code>number</code></td><td><code>1</code></td><td>Hour increment</td></tr>
-              <tr><td><code>minuteStep</code></td><td><code>number</code></td><td><code>1</code></td><td>Minute increment</td></tr>
-              <tr><td><code>secondStep</code></td><td><code>number</code></td><td><code>1</code></td><td>Second increment</td></tr>
-              <tr><td><code>use24Hour</code></td><td><code>boolean</code></td><td><code>true</code></td><td>24h vs 12h + AM/PM column</td></tr>
-              <tr><td><code>showSeconds</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Third drum column</td></tr>
-              <tr><td><code>showIcon</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Clock icon</td></tr>
+              <tr>
+                <td><code>placeholder</code></td>
+                <td><code>string</code></td>
+                <td><code>'Select time'</code></td>
+                <td>Trigger label when no time is set. Any string.</td>
+              </tr>
+              <tr>
+                <td><code>timeFormat</code></td>
+                <td><code>string</code></td>
+                <td><code>'HH:mm'</code></td>
+                <td>
+                  date-fns format for the trigger. Common values:
+                  <code>'HH:mm'</code> (24h), <code>'h:mm a'</code> (12h with AM/PM),
+                  <code>'HH:mm:ss'</code> when seconds are enabled.
+                </td>
+              </tr>
+              <tr>
+                <td><code>hourStep</code></td>
+                <td><code>number</code></td>
+                <td><code>1</code></td>
+                <td>Increment between hour options in the roller. Positive integer (e.g. <code>1</code>, <code>2</code>, <code>6</code>).</td>
+              </tr>
+              <tr>
+                <td><code>minuteStep</code></td>
+                <td><code>number</code></td>
+                <td><code>1</code></td>
+                <td>Increment between minute options. Common values: <code>1</code>, <code>5</code>, <code>15</code>, <code>30</code>.</td>
+              </tr>
+              <tr>
+                <td><code>secondStep</code></td>
+                <td><code>number</code></td>
+                <td><code>1</code></td>
+                <td>Increment for the seconds column when <code>showSeconds</code> is <code>true</code>.</td>
+              </tr>
+              <tr>
+                <td><code>use24Hour</code></td>
+                <td><code>boolean</code></td>
+                <td><code>true</code></td>
+                <td>
+                  <code>true</code> — 0–23 hour drum (default).
+                  <code>false</code> — 1–12 hour drum plus AM/PM column.
+                </td>
+              </tr>
+              <tr>
+                <td><code>showSeconds</code></td>
+                <td><code>boolean</code></td>
+                <td><code>false</code></td>
+                <td>
+                  <code>true</code> adds a third roller column for seconds.
+                  <code>false</code> (default) shows hours and minutes only.
+                </td>
+              </tr>
+              <tr>
+                <td><code>disabled</code></td>
+                <td><code>boolean</code></td>
+                <td><code>false</code></td>
+                <td>Disables the trigger when <code>true</code>. Respects form control disabled state.</td>
+              </tr>
+              <tr>
+                <td><code>showIcon</code></td>
+                <td><code>boolean</code></td>
+                <td><code>true</code></td>
+                <td>Show (<code>true</code>) or hide (<code>false</code>) the clock icon on the trigger.</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -248,7 +441,11 @@ enableDarkMode() &#123;
 
         <h3>Time range picker — <code>fdp-time-range-picker</code></h3>
         <p><strong>Value type:</strong> <code>TimeRange</code> — <code>&#123; start: Date | null; end: Date | null &#125;</code></p>
-        <p>Same time inputs as above. Start and end rollers appear side by side. OK/Cancel footer applies the range.</p>
+        <p>
+          Accepts the same inputs as <code>fdp-time-picker</code> (defaults shown above), plus
+          <code>placeholder</code> defaulting to <code>'Select time range'</code>.
+          Start and end rollers appear side by side; OK commits the range, Cancel reverts.
+        </p>
         <p><strong>Output:</strong> <code>rangeChange</code></p>
 
         <h3>Roller wheel behavior</h3>
@@ -266,30 +463,180 @@ enableDarkMode() &#123;
         <div class="docs-table-wrap">
           <table class="docs-table">
             <thead>
-              <tr><th>Input</th><th>Type</th><th>Default</th></tr>
+              <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
             </thead>
             <tbody>
-              <tr><td><code>monthFormat</code></td><td><code>string</code></td><td><code>'MMM yyyy'</code></td></tr>
-              <tr><td><code>min</code> / <code>max</code></td><td><code>Date | null</code></td><td><code>null</code></td></tr>
-              <tr><td><code>showIcon</code></td><td><code>boolean</code></td><td><code>true</code></td></tr>
+              <tr>
+                <td><code>placeholder</code></td>
+                <td><code>string</code></td>
+                <td><code>'Select month'</code></td>
+                <td>Trigger label when no month is selected.</td>
+              </tr>
+              <tr>
+                <td><code>monthFormat</code></td>
+                <td><code>string</code></td>
+                <td><code>'MMM yyyy'</code></td>
+                <td>
+                  date-fns format for the selected month. Examples:
+                  <code>'MMM yyyy'</code>, <code>'MMMM yyyy'</code>, <code>'MM/yyyy'</code>.
+                </td>
+              </tr>
+              <tr>
+                <td><code>min</code> / <code>max</code></td>
+                <td><code>Date | null</code></td>
+                <td><code>null</code></td>
+                <td>
+                  Inclusive month bounds (normalized to month start). Months outside the range are disabled.
+                  <code>null</code> for no bound.
+                </td>
+              </tr>
+              <tr>
+                <td><code>disabled</code></td>
+                <td><code>boolean</code></td>
+                <td><code>false</code></td>
+                <td>Disables the trigger when <code>true</code>.</td>
+              </tr>
+              <tr>
+                <td><code>showIcon</code></td>
+                <td><code>boolean</code></td>
+                <td><code>true</code></td>
+                <td>Show (<code>true</code>) or hide (<code>false</code>) the calendar icon.</td>
+              </tr>
             </tbody>
           </table>
         </div>
         <p><strong>Output:</strong> <code>monthChange</code></p>
 
         <h3>Month range picker — <code>fdp-month-range-picker</code></h3>
-        <p><strong>Value type:</strong> <code>DateRange</code></p>
+        <p><strong>Value type:</strong> <code>DateRange</code> — months normalized to the first day of each selected month.</p>
+        <div class="docs-table-wrap">
+          <table class="docs-table">
+            <thead>
+              <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>placeholder</code></td>
+                <td><code>string</code></td>
+                <td><code>'Select month range'</code></td>
+                <td>Trigger label when the range is incomplete.</td>
+              </tr>
+              <tr>
+                <td><code>monthFormat</code></td>
+                <td><code>string</code></td>
+                <td><code>'MMM yyyy'</code></td>
+                <td>date-fns format for both range endpoints in the trigger.</td>
+              </tr>
+              <tr>
+                <td><code>min</code> / <code>max</code></td>
+                <td><code>Date | null</code></td>
+                <td><code>null</code></td>
+                <td>Inclusive month bounds for start and end selection. <code>null</code> for no bound.</td>
+              </tr>
+              <tr>
+                <td><code>disabled</code></td>
+                <td><code>boolean</code></td>
+                <td><code>false</code></td>
+                <td>Disables the trigger when <code>true</code>.</td>
+              </tr>
+              <tr>
+                <td><code>showIcon</code></td>
+                <td><code>boolean</code></td>
+                <td><code>true</code></td>
+                <td>Show (<code>true</code>) or hide (<code>false</code>) the calendar icon.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <p><strong>Output:</strong> <code>rangeChange</code></p>
       </section>
 
       <section id="year-pickers" class="docs-section">
         <h2>Year pickers</h2>
         <h3>Year picker — <code>fdp-year-picker</code></h3>
-        <p><strong>Value type:</strong> <code>Date | null</code> (normalized to Jan 1)</p>
+        <p><strong>Value type:</strong> <code>Date | null</code> (normalized to January 1 of the selected year)</p>
+        <div class="docs-table-wrap">
+          <table class="docs-table">
+            <thead>
+              <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>placeholder</code></td>
+                <td><code>string</code></td>
+                <td><code>'Select year'</code></td>
+                <td>Trigger label when no year is selected.</td>
+              </tr>
+              <tr>
+                <td><code>yearFormat</code></td>
+                <td><code>string</code></td>
+                <td><code>'yyyy'</code></td>
+                <td>date-fns format for the trigger. Typically <code>'yyyy'</code>; also supports <code>'yy'</code>.</td>
+              </tr>
+              <tr>
+                <td><code>min</code> / <code>max</code></td>
+                <td><code>Date | null</code></td>
+                <td><code>null</code></td>
+                <td>Inclusive year bounds (normalized to Jan 1). Years outside the range are disabled.</td>
+              </tr>
+              <tr>
+                <td><code>disabled</code></td>
+                <td><code>boolean</code></td>
+                <td><code>false</code></td>
+                <td>Disables the trigger when <code>true</code>.</td>
+              </tr>
+              <tr>
+                <td><code>showIcon</code></td>
+                <td><code>boolean</code></td>
+                <td><code>true</code></td>
+                <td>Show (<code>true</code>) or hide (<code>false</code>) the calendar icon.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <p><strong>Output:</strong> <code>yearChange</code></p>
 
         <h3>Year range picker — <code>fdp-year-range-picker</code></h3>
-        <p><strong>Value type:</strong> <code>DateRange</code></p>
+        <p><strong>Value type:</strong> <code>DateRange</code> — years normalized to January 1.</p>
+        <div class="docs-table-wrap">
+          <table class="docs-table">
+            <thead>
+              <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>placeholder</code></td>
+                <td><code>string</code></td>
+                <td><code>'Select year range'</code></td>
+                <td>Trigger label when the range is incomplete.</td>
+              </tr>
+              <tr>
+                <td><code>yearFormat</code></td>
+                <td><code>string</code></td>
+                <td><code>'yyyy'</code></td>
+                <td>date-fns format for both endpoints in the trigger.</td>
+              </tr>
+              <tr>
+                <td><code>min</code> / <code>max</code></td>
+                <td><code>Date | null</code></td>
+                <td><code>null</code></td>
+                <td>Inclusive year bounds for start and end. <code>null</code> for no bound.</td>
+              </tr>
+              <tr>
+                <td><code>disabled</code></td>
+                <td><code>boolean</code></td>
+                <td><code>false</code></td>
+                <td>Disables the trigger when <code>true</code>.</td>
+              </tr>
+              <tr>
+                <td><code>showIcon</code></td>
+                <td><code>boolean</code></td>
+                <td><code>true</code></td>
+                <td>Show (<code>true</code>) or hide (<code>false</code>) the calendar icon.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <p><strong>Output:</strong> <code>rangeChange</code></p>
       </section>
 
@@ -298,32 +645,28 @@ enableDarkMode() &#123;
 
         <h3>FlexTimeConfig</h3>
         <p>Used by <code>fdp-date-picker</code> and <code>fdp-date-range-picker</code> via the <code>time</code> input:</p>
-        <pre class="docs-code"><code>interface FlexTimeConfig &#123;
-  enabled?: boolean;       // default false
-  format?: string;         // default 'HH:mm'
-  minuteStep?: number;     // default 1
-  hourStep?: number;       // default 1
-  defaultTime?: &#123; hours: number; minutes: number; seconds?: number &#125;;
-  use24Hour?: boolean;     // default true
-  showSeconds?: boolean;   // default false
-&#125;</code></pre>
+        <app-code-block
+          label="Implementation Code"
+          filename="flex-time-config.ts"
+          language="typescript"
+          [code]="snippets.flexTimeConfig"
+        />
 
         <h3>FlexPresetSidebarConfig</h3>
-        <pre class="docs-code"><code>interface FlexPresetSidebarConfig &#123;
-  enabled?: boolean;         // default true
-  presets?: PresetRange[];   // built-in defaults when omitted
-&#125;
-
-interface PresetRange &#123;
-  id: string;
-  label: string;
-  getRange: (referenceDate?: Date) =&gt; DateRange;
-&#125;</code></pre>
+        <app-code-block
+          label="Implementation Code"
+          filename="flex-preset-sidebar-config.ts"
+          language="typescript"
+          [code]="snippets.flexPresetSidebarConfig"
+        />
 
         <h3>FlexDateRangeCalendarConfig</h3>
-        <pre class="docs-code"><code>interface FlexDateRangeCalendarConfig &#123;
-  mode?: 'single' | 'double' | 'auto';  // default 'auto'
-&#125;</code></pre>
+        <app-code-block
+          label="Implementation Code"
+          filename="flex-date-range-calendar-config.ts"
+          language="typescript"
+          [code]="snippets.flexDateRangeCalendarConfig"
+        />
         <ul class="docs-list">
           <li><code>auto</code> — two months on desktop, one on mobile</li>
           <li><code>single</code> — always one calendar</li>
@@ -335,14 +678,19 @@ interface PresetRange &#123;
         <h2>Forms integration</h2>
         <p>All pickers register as <code>NG_VALUE_ACCESSOR</code> providers.</p>
         <h3>Reactive forms</h3>
-        <pre class="docs-code"><code>readonly range = new FormControl&lt;DateRange&gt;(&#123;
-  start: null,
-  end: null,
-&#125;);
-
-&lt;fdp-date-range-picker [formControl]="range" /&gt;</code></pre>
+        <app-code-block
+          label="Implementation Code"
+          filename="range-form.component.ts"
+          language="typescript"
+          [code]="snippets.reactiveForms"
+        />
         <h3>Template-driven</h3>
-        <pre class="docs-code"><code>&lt;fdp-date-picker [(ngModel)]="selectedDate" name="date" /&gt;</code></pre>
+        <app-code-block
+          label="Implementation Code"
+          filename="app.component.html"
+          language="html"
+          [code]="snippets.templateDriven"
+        />
         <h3>Validation</h3>
         <p>
           Use standard Angular validators on the form control. The date picker reactive example in
@@ -352,18 +700,12 @@ interface PresetRange &#123;
 
       <section id="locale-rtl" class="docs-section">
         <h2>Locale &amp; RTL</h2>
-        <pre class="docs-code"><code>import &#123; FlexLocaleService &#125; from 'ngx-flexible-date-picker';
-
-constructor(private locale: FlexLocaleService) &#123;&#125;
-
-setFrench() &#123;
-  this.locale.setLocale('fr');
-&#125;
-
-setArabic() &#123;
-  this.locale.setLocale('ar');
-  document.documentElement.dir = 'rtl';
-&#125;</code></pre>
+        <app-code-block
+          label="Implementation Code"
+          filename="locale.service.ts"
+          language="typescript"
+          [code]="snippets.localeService"
+        />
         <p>
           Weekday labels and calendar layout respect the configured locale. Set
           <code>dir="rtl"</code> on <code>&lt;html&gt;</code> for right-to-left trigger alignment.
@@ -387,12 +729,12 @@ setArabic() &#123;
           <li><code>createYearRangePickerEngine()</code></li>
         </ul>
         <p>Each engine exposes <code>state</code>, <code>actions</code>, and <code>selectors</code> for calendar grids, validation, and open/close lifecycle.</p>
-        <pre class="docs-code"><code>import &#123; createDatePickerEngine &#125; from 'ngx-flexible-date-picker';
-
-const engine = createDatePickerEngine(&#123; weekStartsOn: 1 &#125;);
-engine.actions.open();
-engine.actions.selectDate(new Date(2026, 4, 13));
-console.log(engine.state.value);</code></pre>
+        <app-code-block
+          label="Implementation Code"
+          filename="date-picker.engine.ts"
+          language="typescript"
+          [code]="snippets.headlessEngine"
+        />
       </section>
 
       <section id="services" class="docs-section">
@@ -403,10 +745,35 @@ console.log(engine.state.value);</code></pre>
               <tr><th>Service</th><th>Purpose</th></tr>
             </thead>
             <tbody>
-              <tr><td><code>FlexThemeService</code></td><td>Toggle light/dark mode on document root</td></tr>
-              <tr><td><code>FlexLocaleService</code></td><td>Set locale code and week start day</td></tr>
-              <tr><td><code>FlexOverlayService</code></td><td>Focus trap, outside click, overlay placement</td></tr>
-              <tr><td><code>PickerEngineBridgeService</code></td><td>Signal bridge for engine ↔ component sync</td></tr>
+              <tr>
+                <td><code>FlexThemeService</code></td>
+                <td>
+                  Toggle light/dark mode on <code>&lt;html&gt;</code>.
+                  Call <code>setDarkMode(true | false)</code> or read <code>isDarkMode()</code>.
+                </td>
+              </tr>
+              <tr>
+                <td><code>FlexLocaleService</code></td>
+                <td>
+                  Set active locale with <code>setLocale(code)</code>.
+                  Supported codes include <code>'en'</code>, <code>'fr'</code>, <code>'de'</code>, <code>'ar'</code>.
+                  Controls weekday labels and week start day via <code>weekStartsOn()</code> (0 = Sunday, 1 = Monday).
+                </td>
+              </tr>
+              <tr>
+                <td><code>FlexOverlayService</code></td>
+                <td>
+                  Manages popover placement (above/below anchor), focus trap, outside-click dismiss,
+                  and mobile bottom-sheet layout. Used internally by picker components.
+                </td>
+              </tr>
+              <tr>
+                <td><code>PickerEngineBridgeService</code></td>
+                <td>
+                  Signal bridge syncing headless engine state with component UI.
+                  Useful when building custom picker shells on top of the engines.
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -427,23 +794,26 @@ console.log(engine.state.value);</code></pre>
         <h2>API reference</h2>
         <p>Full public exports from <code>ngx-flexible-date-picker</code>:</p>
         <h3>Components</h3>
-        <pre class="docs-code"><code>FlexDatePickerComponent
-FlexDateRangePickerComponent
-FlexTimePickerComponent
-FlexTimeRangePickerComponent
-FlexMonthPickerComponent
-FlexMonthRangePickerComponent
-FlexYearPickerComponent
-FlexYearRangePickerComponent</code></pre>
+        <app-code-block
+          label="Implementation Code"
+          filename="public-api.ts"
+          language="text"
+          [code]="snippets.apiComponents"
+        />
         <h3>Types &amp; models</h3>
-        <pre class="docs-code"><code>DateRange, TimeRange, FlexTimeConfig
-FlexPresetSidebarConfig, FlexDateRangeCalendarConfig
-PresetRange, CalendarMonth, CalendarDay
-Granularity, WeekStart, LocaleCode</code></pre>
+        <app-code-block
+          label="Implementation Code"
+          filename="models.ts"
+          language="text"
+          [code]="snippets.apiTypes"
+        />
         <h3>Utilities</h3>
-        <pre class="docs-code"><code>normalizeDate, mergeDateAndTime, getTimeParts
-generateHourOptions, generateMinuteOptions
-getWeekdayLabels, buildLoopedOptions</code></pre>
+        <app-code-block
+          label="Implementation Code"
+          filename="utils.ts"
+          language="text"
+          [code]="snippets.apiUtilities"
+        />
       </section>
     </article>
   </div>

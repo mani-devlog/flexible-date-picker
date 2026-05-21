@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CodeBlockComponent } from '../shared/code-block/code-block.component';
+import { docsSnippets } from '../docs/docs-snippets';
 
 interface FeatureCard {
   title: string;
@@ -16,10 +18,11 @@ interface PickerHighlight {
 @Component({
   selector: 'app-features',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink],
+  imports: [RouterLink, CodeBlockComponent],
   templateUrl: './features.component.html',
 })
 export class FeaturesComponent {
+  readonly importSnippet = docsSnippets.featuresImport;
   readonly featureCards: FeatureCard[] = [
     {
       title: 'Eight picker components',
