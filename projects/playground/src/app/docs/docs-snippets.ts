@@ -29,6 +29,39 @@ constructor(private theme: FlexThemeService) {}
 
 enableDarkMode() {
   this.theme.setDarkMode(true);
+}
+
+useSystemTheme() {
+  this.theme.setColorScheme('auto');
+}`,
+
+  colorSchemePicker: `<fdp-date-picker colorScheme="dark" placeholder="Select date" />`,
+
+  customColorsPicker: `<fdp-date-picker
+  placeholder="Select date"
+  [customColors]="{
+    primary: '#be123c',
+    primaryForeground: '#ffffff',
+    range: '#fecdd3',
+    radius: '0.5rem'
+  }"
+/>`,
+
+  flexThemeTokens: `interface FlexThemeTokens {
+  surface?: string;
+  surfaceElevated?: string;
+  border?: string;
+  primary?: string;
+  primaryForeground?: string;
+  muted?: string;
+  mutedForeground?: string;
+  accent?: string;
+  accentForeground?: string;
+  range?: string;
+  today?: string;
+  disabled?: string;
+  radius?: string;
+  shadow?: string;
 }`,
 
   datePickerHtml: `<fdp-date-picker
@@ -102,8 +135,16 @@ FlexYearRangePickerComponent`,
 
   apiTypes: `DateRange, TimeRange, FlexTimeConfig
 FlexPresetSidebarConfig, FlexDateRangeCalendarConfig
+FlexColorScheme, FlexThemeTokens
 PresetRange, CalendarMonth, CalendarDay
 Granularity, WeekStart, LocaleCode`,
+
+  applyCustomColorsGlobal: `this.theme.setColorScheme('light');
+this.theme.applyCustomColors({
+  primary: '#7c3aed',
+  surface: '#faf5ff',
+});
+// this.theme.clearCustomColors();`,
 
   apiUtilities: `normalizeDate, mergeDateAndTime, getTimeParts
 generateHourOptions, generateMinuteOptions

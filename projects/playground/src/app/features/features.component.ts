@@ -49,9 +49,9 @@ export class FeaturesComponent {
       icon: 'engine',
     },
     {
-      title: 'Theming & dark mode',
+      title: 'Theming & custom colors',
       description:
-        'CSS variable-based design tokens with built-in light and dark palettes. Override any token to match your brand.',
+        'Light, dark, and auto color schemes per picker or globally. Override any design token with FlexThemeTokens for full brand control.',
       icon: 'theme',
     },
     {

@@ -754,5 +754,75 @@
         }
       </p>
     </section>
+
+    <section class="playground-card playground-card--full playground-card--theme">
+      <h2>Color scheme &amp; custom colors</h2>
+      <p class="playground-card__lead">
+        Every picker supports <code>colorScheme</code> (<code>light</code>, <code>dark</code>,
+        <code>auto</code>) and partial <code>customColors</code> overrides via
+        <code>FlexThemeTokens</code>. Use the site nav toggle for global theme; settings below apply
+        only to these demos.
+      </p>
+      @let themeConfig = themePickerConfig();
+      <div class="playground-config">
+        <label>
+          Color scheme
+          <select
+            [value]="themeConfig.colorScheme"
+            (change)="updatePickerConfig(themePickerConfig, { colorScheme: $any($event.target).value })"
+          >
+            @for (option of themeColorSchemeOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+        </label>
+        <label>
+          Custom palette
+          <select
+            [value]="themeConfig.preset"
+            (change)="updatePickerConfig(themePickerConfig, { preset: $any($event.target).value })"
+          >
+            @for (option of themePresetOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+        </label>
+      </div>
+      <div class="playground-theme-demos">
+        <div class="playground-theme-demo">
+          <h3 class="playground-theme-demo__title">Date picker</h3>
+          <fdp-date-picker
+            [formControl]="themeDemoDate"
+            placeholder="Select date"
+            dateFormat="MMM d, yyyy"
+            [colorScheme]="themeColorScheme(themeConfig)"
+            [customColors]="themeCustomColors(themeConfig)"
+          />
+          <p class="playground-value">
+            Value: {{ themeDemoDate.value | date: 'mediumDate' }}
+          </p>
+        </div>
+        <div class="playground-theme-demo">
+          <h3 class="playground-theme-demo__title">Date range picker</h3>
+          <fdp-date-range-picker
+            [formControl]="themeDemoRange"
+            placeholder="Select date range"
+            dateFormat="MMM d, yyyy"
+            [presetSidebar]="{ enabled: true }"
+            [colorScheme]="themeColorScheme(themeConfig)"
+            [customColors]="themeCustomColors(themeConfig)"
+          />
+          <p class="playground-value">
+            @if (themeDemoRange.value?.start) {
+              {{ themeDemoRange.value?.start | date: 'mediumDate' }}
+              –
+              {{ themeDemoRange.value?.end | date: 'mediumDate' }}
+            } @else {
+              No range selected
+            }
+          </p>
+        </div>
+      </div>
+    </section>
   </div>
   </main>

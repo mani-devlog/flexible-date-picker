@@ -11,10 +11,13 @@ import {
   DestroyRef,
   afterNextRender,
   effect,
+  computed,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { format } from 'date-fns';
 import type { DateRange } from '../models';
+import { flexThemeTokensToStyle, type FlexThemeTokens } from '../themes/flex-theme-tokens';
+import type { FlexColorScheme } from '../types';
 import {
   createYearRangePickerEngine,
   type YearRangePickerEngine,
@@ -44,7 +47,12 @@ import { FlexActionBarComponent } from '../shared/flex-action-bar.component';
     FlexCalendarIconComponent,
   ],
   template: `
-    <div #pickerWrapper class="flex-picker flex-picker-wrapper">
+    <div
+      #pickerWrapper
+      class="flex-picker flex-picker-wrapper"
+      [attr.data-flex-theme]="colorScheme() ?? null"
+      [style]="pickerThemeStyles()"
+    >
       <button
         type="button"
         class="flex-picker-trigger"
@@ -100,6 +108,11 @@ export class FlexYearRangePickerComponent implements ControlValueAccessor {
   readonly max = input<Date | null>(null);
   readonly disabled = input(false);
   readonly showIcon = input(true);
+  /** When set, overrides the document theme for this picker only. */
+  readonly colorScheme = input<FlexColorScheme>();
+  /** Partial palette overrides applied as CSS variables on this picker. */
+  readonly customColors = input<FlexThemeTokens>();
+  readonly pickerThemeStyles = computed(() => flexThemeTokensToStyle(this.customColors()));
   readonly rangeChange = output<DateRange>();
 
   readonly overlay = inject(FlexOverlayService);

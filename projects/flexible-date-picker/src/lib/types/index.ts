@@ -1,3 +1,6 @@
+/** Light/dark appearance for a picker or the document root. */
+export type FlexColorScheme = 'light' | 'dark' | 'auto';
+
 export type DateValue = Date | null;
 export type Granularity = 'day' | 'month' | 'year';
 export type WeekStart = 0 | 1 | 2 | 3 | 4 | 5 | 6;

@@ -25,5 +25,8 @@ export * from './lib/utils';
 // Services
 export * from './lib/services';
 
+// Theme tokens & utilities
+export * from './lib/themes';
+
 // Shared UI
 export * from './lib/shared';

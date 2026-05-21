@@ -88,6 +88,8 @@ All pickers use the `fdp-*` selector prefix and implement `ControlValueAccessor`
 | `time` | `FlexTimeConfig` | `{}` | Optional inline time drum |
 | `disabled` | `boolean` | `false` | Disable trigger |
 | `showIcon` | `boolean` | `true` | Show calendar icon |
+| `colorScheme` | `'light' \| 'dark' \| 'auto'` | — | Per-picker theme; inherits document when omitted |
+| `customColors` | `FlexThemeTokens` | — | Partial palette overrides as CSS variables |
 
 ### Date range picker
 
@@ -127,6 +129,8 @@ Roller/wheel UI with infinite loop scrolling. OK commits the value; Cancel rever
 **Year:** `yearFormat` (default `'yyyy'`), `min`, `max`, `showIcon`.
 
 Range variants share the same inputs and emit `rangeChange`.
+
+All pickers also accept optional `colorScheme` (`'light' | 'dark' | 'auto'`) and `customColors` (`FlexThemeTokens`) to override the document theme for that instance only.
 
 ## Shared configuration
 
@@ -175,7 +179,9 @@ interface FlexDateRangeCalendarConfig {
 
 ## Styling & theming
 
-The library ships CSS custom properties in `flexible-date-picker-base.css`. Toggle dark mode:
+The library ships CSS custom properties in `flexible-date-picker-base.css`.
+
+### Global theme
 
 ```typescript
 import { FlexThemeService } from 'ngx-flexible-date-picker';
@@ -185,11 +191,50 @@ constructor(private theme: FlexThemeService) {}
 enableDarkMode() {
   this.theme.setDarkMode(true);
 }
+
+useSystemTheme() {
+  this.theme.setColorScheme('auto');
+}
 ```
 
-Common variables: `--flex-surface`, `--flex-primary`, `--flex-border`, `--flex-muted-foreground`, `--flex-range`, `--flex-radius`.
+`FlexThemeService` supports `setColorScheme('light' | 'dark' | 'auto')`, `setDarkMode()`, `toggleDarkMode()`, `getColorScheme()`, and `isDarkMode()`.
 
-Apply `.dark` or `data-flex-theme="dark"` on `<html>` for the dark palette. Override any variable in your own CSS.
+### Per-picker color scheme
+
+Every picker accepts an optional `colorScheme` input (`'light' | 'dark' | 'auto'`). When set, the picker applies `data-flex-theme` on its root so it can differ from the document theme:
+
+```html
+<fdp-date-picker colorScheme="dark" placeholder="Select date" />
+<fdp-date-range-picker colorScheme="auto" />
+```
+
+Omit `colorScheme` to inherit the global palette from `<html>`.
+
+### Custom colors
+
+Pass a partial `FlexThemeTokens` object to override specific CSS variables. Works alone or combined with `colorScheme` (custom values win on the properties you set):
+
+```html
+<fdp-date-picker
+  colorScheme="light"
+  [customColors]="{
+    primary: '#be123c',
+    primaryForeground: '#ffffff',
+    range: '#fecdd3',
+    radius: '0.5rem'
+  }"
+/>
+```
+
+```typescript
+this.theme.setColorScheme('light');
+this.theme.applyCustomColors({ primary: '#7c3aed', surface: '#faf5ff' });
+// this.theme.clearCustomColors();
+```
+
+`FlexThemeTokens` fields: `surface`, `surfaceElevated`, `border`, `primary`, `primaryForeground`, `muted`, `mutedForeground`, `accent`, `accentForeground`, `range`, `today`, `disabled`, `radius`, `shadow`.
+
+Common variables: `--flex-surface`, `--flex-primary`, `--flex-border`, `--flex-muted-foreground`, `--flex-range`, `--flex-radius`. Override any variable in your own CSS as well.
 
 ## Locale & RTL
 

@@ -84,7 +84,7 @@
           <li>Responsive dual-calendar layout for range selection</li>
           <li>Min/max bounds, custom disabled dates, and weekend blocking</li>
           <li>Calendar and clock icons, configurable placeholders and formats</li>
-          <li>Light/dark theme via CSS variables and <code>FlexThemeService</code></li>
+          <li>Light/dark/auto themes, per-picker <code>colorScheme</code>, and brand colors via <code>customColors</code></li>
           <li>Locale support and RTL layout via <code>FlexLocaleService</code></li>
           <li>Popover overlay with focus trap, escape to close, and outside-click dismiss</li>
           <li>OnPush change detection and signal-based Angular APIs</li>
@@ -125,52 +125,150 @@
         <h2>Styling &amp; theming</h2>
         <p>
           The library uses CSS custom properties defined in
-          <code>flexible-date-picker-base.css</code>. Toggle dark mode programmatically:
+          <code>flexible-date-picker-base.css</code>. You can theme globally with
+          <code>FlexThemeService</code>, per picker with <code>colorScheme</code>, or with partial
+          brand overrides via <code>customColors</code>. Try the
+          <a routerLink="/">live examples</a> — the last card demonstrates all three approaches.
         </p>
+
+        <h3>Global theme</h3>
+        <p>Apply light, dark, or system-aware mode on <code>&lt;html&gt;</code>:</p>
         <app-code-block
           label="Implementation Code"
           filename="theme.service.ts"
           language="typescript"
           [code]="snippets.themeService"
         />
-        <p>Key CSS variables:</p>
+        <p>
+          <code>setColorScheme('auto')</code> follows <code>prefers-color-scheme</code>.
+          <code>applyCustomColors()</code> sets inline overrides on the document root;
+          <code>clearCustomColors()</code> removes them.
+        </p>
+        <app-code-block
+          label="Implementation Code"
+          filename="theme-global-custom.ts"
+          language="typescript"
+          [code]="snippets.applyCustomColorsGlobal"
+        />
+
+        <h3>Per-picker <code>colorScheme</code></h3>
+        <p>
+          Every <code>fdp-*</code> picker accepts an optional
+          <code>colorScheme</code> input: <code>'light'</code>, <code>'dark'</code>, or
+          <code>'auto'</code>. When set, the picker root gets <code>data-flex-theme</code> so it can
+          differ from the page (e.g. a dark picker on a light page). Omit the input to inherit the
+          document palette.
+        </p>
+        <app-code-block
+          label="Implementation Code"
+          filename="app.component.html"
+          language="html"
+          [code]="snippets.colorSchemePicker"
+        />
+
+        <h3>Custom colors (<code>customColors</code>)</h3>
+        <p>
+          Pass a partial <code>FlexThemeTokens</code> object to override specific CSS variables on
+          that picker only. Combine with <code>colorScheme</code> for a built-in base plus brand
+          accents — custom values win for the properties you set.
+        </p>
+        <app-code-block
+          label="Implementation Code"
+          filename="app.component.html"
+          language="html"
+          [code]="snippets.customColorsPicker"
+        />
+        <app-code-block
+          label="Implementation Code"
+          filename="flex-theme-tokens.ts"
+          language="typescript"
+          [code]="snippets.flexThemeTokens"
+        />
+
+        <h3>CSS variables</h3>
         <div class="docs-table-wrap">
           <table class="docs-table">
             <thead>
-              <tr><th>Variable</th><th>Description</th></tr>
+              <tr><th>Token field</th><th>CSS variable</th><th>Description</th></tr>
             </thead>
             <tbody>
               <tr>
+                <td><code>surface</code></td>
                 <td><code>--flex-surface</code></td>
-                <td>Background for popover panels, inputs, and elevated surfaces. Default light: white; dark: slate.</td>
+                <td>Background for popover panels, inputs, and elevated surfaces.</td>
               </tr>
               <tr>
+                <td><code>surfaceElevated</code></td>
+                <td><code>--flex-surface-elevated</code></td>
+                <td>Secondary surface (e.g. nested panels).</td>
+              </tr>
+              <tr>
+                <td><code>primary</code></td>
                 <td><code>--flex-primary</code></td>
-                <td>Accent color for selected days, primary buttons, focus rings, and active states.</td>
+                <td>Selected days, primary buttons, focus rings, active states.</td>
               </tr>
               <tr>
+                <td><code>primaryForeground</code></td>
+                <td><code>--flex-primary-foreground</code></td>
+                <td>Text/icon on primary backgrounds.</td>
+              </tr>
+              <tr>
+                <td><code>border</code></td>
                 <td><code>--flex-border</code></td>
-                <td>Border and divider color for panels, inputs, and calendar grids.</td>
+                <td>Borders and dividers.</td>
               </tr>
               <tr>
+                <td><code>muted</code></td>
+                <td><code>--flex-muted</code></td>
+                <td>Hover and subtle fill backgrounds.</td>
+              </tr>
+              <tr>
+                <td><code>mutedForeground</code></td>
                 <td><code>--flex-muted-foreground</code></td>
-                <td>Secondary text color for labels, weekday headers, and inactive drum values.</td>
+                <td>Secondary text, weekday headers, inactive drum values.</td>
               </tr>
               <tr>
+                <td><code>accent</code></td>
+                <td><code>--flex-accent</code></td>
+                <td>Accent surface (presets, highlights).</td>
+              </tr>
+              <tr>
+                <td><code>accentForeground</code></td>
+                <td><code>--flex-accent-foreground</code></td>
+                <td>Text on accent surfaces.</td>
+              </tr>
+              <tr>
+                <td><code>range</code></td>
                 <td><code>--flex-range</code></td>
-                <td>Background highlight for in-range days between start and end in range pickers.</td>
+                <td>In-range highlight between start and end in range pickers.</td>
               </tr>
               <tr>
+                <td><code>today</code></td>
+                <td><code>--flex-today</code></td>
+                <td>Today indicator background.</td>
+              </tr>
+              <tr>
+                <td><code>disabled</code></td>
+                <td><code>--flex-disabled</code></td>
+                <td>Disabled day/cell text color.</td>
+              </tr>
+              <tr>
+                <td><code>radius</code></td>
                 <td><code>--flex-radius</code></td>
-                <td>Base border radius (CSS length) applied to panels, buttons, and inputs.</td>
+                <td>Base border radius for panels, buttons, and inputs.</td>
+              </tr>
+              <tr>
+                <td><code>shadow</code></td>
+                <td><code>--flex-shadow</code></td>
+                <td>Popover box shadow.</td>
               </tr>
             </tbody>
           </table>
         </div>
         <p>
-          Override any variable in your own CSS. The <code>.dark</code> class or
-          <code>data-flex-theme="dark"</code> attribute on <code>&lt;html&gt;</code> activates the
-          dark palette.
+          Override any variable in your own CSS as well. The <code>.dark</code> class or
+          <code>data-flex-theme="dark"</code> on <code>&lt;html&gt;</code> activates the dark
+          palette globally.
         </p>
       </section>
 
@@ -180,6 +278,11 @@
           Every picker implements <code>ControlValueAccessor</code> and supports
           <code>disabled</code> via input or form control state. Outputs emit when the committed
           value changes (on selection or OK for time pickers).
+        </p>
+        <p>
+          All pickers share optional <code>colorScheme</code> (<code>'light' | 'dark' | 'auto'</code>)
+          and <code>customColors</code> (<code>FlexThemeTokens</code>) inputs for per-instance
+          theming — see <a routerLink="." fragment="styling">Styling &amp; theming</a>.
         </p>
       </section>
 
@@ -253,6 +356,25 @@
                 <td><code>boolean</code></td>
                 <td><code>true</code></td>
                 <td>Show (<code>true</code>) or hide (<code>false</code>) the calendar icon on the trigger.</td>
+              </tr>
+              <tr>
+                <td><code>colorScheme</code></td>
+                <td><code>'light' | 'dark' | 'auto'</code></td>
+                <td>—</td>
+                <td>
+                  Per-picker light/dark/system theme. Sets <code>data-flex-theme</code> on the picker
+                  root. Omit to inherit the document theme from <code>&lt;html&gt;</code>.
+                </td>
+              </tr>
+              <tr>
+                <td><code>customColors</code></td>
+                <td><code>FlexThemeTokens</code></td>
+                <td>—</td>
+                <td>
+                  Partial palette overrides applied as <code>--flex-*</code> CSS variables on this
+                  picker. Combine with <code>colorScheme</code> to start from a preset and override
+                  brand colors (e.g. <code>primary</code>, <code>range</code>).
+                </td>
               </tr>
             </tbody>
           </table>
@@ -672,6 +794,24 @@
           <li><code>single</code> — always one calendar</li>
           <li><code>double</code> — always two consecutive months</li>
         </ul>
+
+        <h3>FlexThemeTokens &amp; FlexColorScheme</h3>
+        <p>
+          <code>FlexColorScheme</code> is <code>'light' | 'dark' | 'auto'</code>. Use it on any
+          picker’s <code>colorScheme</code> input or with <code>FlexThemeService.setColorScheme()</code>.
+          <code>FlexThemeTokens</code> is a partial map of palette fields to CSS color/length values
+          for the <code>customColors</code> input and <code>applyCustomColors()</code>.
+        </p>
+        <app-code-block
+          label="Implementation Code"
+          filename="flex-theme-tokens.ts"
+          language="typescript"
+          [code]="snippets.flexThemeTokens"
+        />
+        <p>
+          The same <code>colorScheme</code> and <code>customColors</code> inputs are available on
+          every <code>fdp-*</code> picker component.
+        </p>
       </section>
 
       <section id="forms" class="docs-section">
@@ -748,8 +888,11 @@
               <tr>
                 <td><code>FlexThemeService</code></td>
                 <td>
-                  Toggle light/dark mode on <code>&lt;html&gt;</code>.
-                  Call <code>setDarkMode(true | false)</code> or read <code>isDarkMode()</code>.
+                  Global theming on <code>&lt;html&gt;</code>:
+                  <code>setColorScheme('light' | 'dark' | 'auto')</code>,
+                  <code>setDarkMode()</code>, <code>toggleDarkMode()</code>,
+                  <code>getColorScheme()</code>, <code>isDarkMode()</code>,
+                  <code>applyCustomColors(tokens)</code>, and <code>clearCustomColors()</code>.
                 </td>
               </tr>
               <tr>

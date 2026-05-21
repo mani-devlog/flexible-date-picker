@@ -222,6 +222,47 @@ a {
   color: inherit;
 }
 
+.playground-card__lead {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--flex-muted-foreground);
+}
+
+.playground-card__lead code {
+  font-size: 0.8125rem;
+}
+
+.playground-theme-demos {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 900px) {
+  .playground-theme-demos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.playground-theme-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid var(--flex-border);
+  border-radius: var(--flex-radius);
+  background: var(--flex-surface-elevated);
+}
+
+.playground-theme-demo__title {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--flex-muted-foreground);
+}
+
 .playground-config {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));

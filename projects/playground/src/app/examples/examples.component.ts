@@ -17,8 +17,10 @@ import {
   FlexYearPickerComponent,
   FlexYearRangePickerComponent,
   normalizeDate,
+  type FlexColorScheme,
   type FlexPresetSidebarConfig,
   type FlexDateRangeCalendarConfig,
+  type FlexThemeTokens,
   type FlexTimeConfig,
   type PresetRange,
   type TimeRange,
@@ -71,6 +73,13 @@ interface TimePickerPlaygroundConfig {
 
 interface TimeRangePickerPlaygroundConfig extends TimePickerPlaygroundConfig {}
 
+type ThemePresetId = 'default' | 'rose' | 'violet' | 'emerald';
+
+interface ThemePlaygroundConfig {
+  colorScheme: '' | FlexColorScheme;
+  preset: ThemePresetId;
+}
+
 @Component({
   selector: 'app-examples',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -114,6 +123,80 @@ export class ExamplesComponent {
   });
 
   ngModelDate: Date | null = new Date(2026, 4, 18);
+  readonly themeDemoDate = new FormControl<Date | null>(new Date(2026, 4, 15));
+  readonly themeDemoRange = new FormControl<{ start: Date | null; end: Date | null }>({
+    start: new Date(2026, 4, 10),
+    end: new Date(2026, 4, 20),
+  });
+
+  readonly themePickerConfig = signal<ThemePlaygroundConfig>({
+    colorScheme: '',
+    preset: 'rose',
+  });
+
+  readonly themeColorSchemeOptions: { value: '' | FlexColorScheme; label: string }[] = [
+    { value: '', label: 'Inherit (site theme)' },
+    { value: 'light', label: 'Light' },
+    { value: 'dark', label: 'Dark' },
+    { value: 'auto', label: 'Auto (system)' },
+  ];
+
+  readonly themePresetOptions: { value: ThemePresetId; label: string }[] = [
+    { value: 'default', label: 'Built-in palette only' },
+    { value: 'rose', label: 'Rose brand' },
+    { value: 'violet', label: 'Violet brand' },
+    { value: 'emerald', label: 'Emerald brand' },
+  ];
+
+  readonly themePresets: Record<ThemePresetId, FlexThemeTokens | undefined> = {
+    default: undefined,
+    rose: {
+      primary: '#be123c',
+      primaryForeground: '#ffffff',
+      surface: '#fff1f2',
+      surfaceElevated: '#ffe4e6',
+      border: '#fecdd3',
+      muted: '#fce7f3',
+      mutedForeground: '#9f1239',
+      accent: '#ffe4e6',
+      accentForeground: '#be123c',
+      range: '#fecdd3',
+      today: '#fdf2f8',
+      disabled: '#fda4af',
+      radius: '0.5rem',
+    },
+    violet: {
+      primary: '#7c3aed',
+      primaryForeground: '#ffffff',
+      surface: '#faf5ff',
+      surfaceElevated: '#f3e8ff',
+      border: '#ddd6fe',
+      muted: '#ede9fe',
+      mutedForeground: '#5b21b6',
+      accent: '#ede9fe',
+      accentForeground: '#6d28d9',
+      range: '#ddd6fe',
+      today: '#f5f3ff',
+      disabled: '#c4b5fd',
+      radius: '0.625rem',
+    },
+    emerald: {
+      primary: '#059669',
+      primaryForeground: '#ffffff',
+      surface: '#ecfdf5',
+      surfaceElevated: '#d1fae5',
+      border: '#a7f3d0',
+      muted: '#d1fae5',
+      mutedForeground: '#047857',
+      accent: '#d1fae5',
+      accentForeground: '#065f46',
+      range: '#a7f3d0',
+      today: '#f0fdf4',
+      disabled: '#6ee7b7',
+      radius: '0.375rem',
+    },
+  };
+
   readonly minDate = new Date(2024, 0, 1);
   readonly maxDate = new Date(2026, 11, 31);
   readonly minMonth = new Date(2024, 0, 1);
@@ -311,5 +394,13 @@ export class ExamplesComponent {
   isWeekend(date: Date): boolean {
     const day = date.getDay();
     return day === 0 || day === 6;
+  }
+
+  themeColorScheme(config: ThemePlaygroundConfig): FlexColorScheme | undefined {
+    return config.colorScheme === '' ? undefined : config.colorScheme;
+  }
+
+  themeCustomColors(config: ThemePlaygroundConfig): FlexThemeTokens | undefined {
+    return this.themePresets[config.preset];
   }
 }

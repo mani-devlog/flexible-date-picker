@@ -16,7 +16,8 @@
 }
 
 .dark,
-[data-flex-theme='dark'] {
+[data-flex-theme='dark'],
+.flex-picker[data-flex-theme='dark'] {
   --flex-surface: #0f172a;
   --flex-surface-elevated: #1e293b;
   --flex-border: #334155;
@@ -30,6 +31,59 @@
   --flex-today: #422006;
   --flex-disabled: #475569;
   --flex-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+}
+
+[data-flex-theme='light'],
+.flex-picker[data-flex-theme='light'] {
+  --flex-surface: #ffffff;
+  --flex-surface-elevated: #f8fafc;
+  --flex-border: #e2e8f0;
+  --flex-primary: #2563eb;
+  --flex-primary-foreground: #ffffff;
+  --flex-muted: #f1f5f9;
+  --flex-muted-foreground: #64748b;
+  --flex-accent: #eff6ff;
+  --flex-accent-foreground: #1d4ed8;
+  --flex-range: #dbeafe;
+  --flex-today: #fef3c7;
+  --flex-disabled: #cbd5e1;
+  --flex-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+[data-flex-theme='auto'],
+.flex-picker[data-flex-theme='auto'] {
+  --flex-surface: #ffffff;
+  --flex-surface-elevated: #f8fafc;
+  --flex-border: #e2e8f0;
+  --flex-primary: #2563eb;
+  --flex-primary-foreground: #ffffff;
+  --flex-muted: #f1f5f9;
+  --flex-muted-foreground: #64748b;
+  --flex-accent: #eff6ff;
+  --flex-accent-foreground: #1d4ed8;
+  --flex-range: #dbeafe;
+  --flex-today: #fef3c7;
+  --flex-disabled: #cbd5e1;
+  --flex-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-flex-theme='auto'],
+  .flex-picker[data-flex-theme='auto'] {
+    --flex-surface: #0f172a;
+    --flex-surface-elevated: #1e293b;
+    --flex-border: #334155;
+    --flex-primary: #3b82f6;
+    --flex-primary-foreground: #ffffff;
+    --flex-muted: #1e293b;
+    --flex-muted-foreground: #94a3b8;
+    --flex-accent: #1e3a5f;
+    --flex-accent-foreground: #93c5fd;
+    --flex-range: #1e3a5f;
+    --flex-today: #422006;
+    --flex-disabled: #475569;
+    --flex-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+  }
 }
 
 .flex-picker {

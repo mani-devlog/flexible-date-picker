@@ -34,11 +34,37 @@ export const WithoutIcon: Story = {
 };
 
 export const DarkMode: Story = {
-  args: { placeholder: 'Select date' },
+  args: {
+    placeholder: 'Select date',
+    colorScheme: 'dark',
+  },
   parameters: { backgrounds: { default: 'dark' } },
-  decorators: [
-    (story) => ({
-      template: `<div class="dark" data-flex-theme="dark">${story().template ?? '<fdp-date-picker placeholder="Select date" />'}</div>`,
-    }),
-  ],
+};
+
+export const AutoColorScheme: Story = {
+  args: {
+    placeholder: 'Select date',
+    colorScheme: 'auto',
+  },
+};
+
+export const CustomColors: Story = {
+  args: {
+    placeholder: 'Select date',
+    customColors: {
+      primary: '#be123c',
+      primaryForeground: '#ffffff',
+      surface: '#fff1f2',
+      surfaceElevated: '#ffe4e6',
+      border: '#fecdd3',
+      muted: '#fce7f3',
+      mutedForeground: '#9f1239',
+      accent: '#ffe4e6',
+      accentForeground: '#be123c',
+      range: '#fecdd3',
+      today: '#fdf2f8',
+      disabled: '#fda4af',
+      radius: '0.5rem',
+    },
+  },
 };

@@ -11,6 +11,7 @@ import {
   DestroyRef,
   afterNextRender,
   effect,
+  computed,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { format } from 'date-fns';
@@ -24,6 +25,8 @@ import { FlexCalendarIconComponent } from '../shared/flex-calendar-icon.componen
 import { FlexPopoverComponent } from '../shared/flex-popover.component';
 import { FlexMonthGridComponent } from '../shared/flex-month-grid.component';
 import { FlexNavHeaderComponent } from '../shared/flex-nav-header.component';
+import { flexThemeTokensToStyle, type FlexThemeTokens } from '../themes/flex-theme-tokens';
+import type { FlexColorScheme } from '../types';
 
 @Component({
   selector: 'fdp-month-picker',
@@ -37,7 +40,12 @@ import { FlexNavHeaderComponent } from '../shared/flex-nav-header.component';
   ],
   imports: [FlexPopoverComponent, FlexMonthGridComponent, FlexNavHeaderComponent, FlexCalendarIconComponent],
   template: `
-    <div #pickerWrapper class="flex-picker flex-picker-wrapper">
+    <div
+      #pickerWrapper
+      class="flex-picker flex-picker-wrapper"
+      [attr.data-flex-theme]="colorScheme() ?? null"
+      [style]="pickerThemeStyles()"
+    >
       <button
         type="button"
         class="flex-picker-trigger"
@@ -83,6 +91,11 @@ export class FlexMonthPickerComponent implements ControlValueAccessor {
   readonly max = input<Date | null>(null);
   readonly disabled = input(false);
   readonly showIcon = input(true);
+  /** When set, overrides the document theme for this picker only. */
+  readonly colorScheme = input<FlexColorScheme>();
+  /** Partial palette overrides applied as CSS variables on this picker. */
+  readonly customColors = input<FlexThemeTokens>();
+  readonly pickerThemeStyles = computed(() => flexThemeTokensToStyle(this.customColors()));
   readonly monthChange = output<Date | null>();
 
   private readonly locale = inject(FlexLocaleService);

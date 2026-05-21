@@ -46,4 +46,27 @@ describe('FlexDatePickerComponent', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('flex-calendar-icon')).toBeFalsy();
   });
+
+  it('should apply colorScheme on the picker wrapper', () => {
+    fixture.componentRef.setInput('colorScheme', 'dark');
+    fixture.detectChanges();
+    const wrapper = fixture.nativeElement.querySelector('.flex-picker-wrapper');
+    expect(wrapper.getAttribute('data-flex-theme')).toBe('dark');
+  });
+
+  it('should not set data-flex-theme when colorScheme is unset', () => {
+    const wrapper = fixture.nativeElement.querySelector('.flex-picker-wrapper');
+    expect(wrapper.hasAttribute('data-flex-theme')).toBeFalse();
+  });
+
+  it('should apply customColors as CSS variables on the picker wrapper', () => {
+    fixture.componentRef.setInput('customColors', {
+      primary: '#9333ea',
+      range: '#ede9fe',
+    });
+    fixture.detectChanges();
+    const wrapper = fixture.nativeElement.querySelector('.flex-picker-wrapper') as HTMLElement;
+    expect(wrapper.style.getPropertyValue('--flex-primary')).toBe('#9333ea');
+    expect(wrapper.style.getPropertyValue('--flex-range')).toBe('#ede9fe');
+  });
 });

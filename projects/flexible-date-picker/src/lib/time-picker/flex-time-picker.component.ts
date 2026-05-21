@@ -10,6 +10,7 @@ import {
   viewChild,
   DestroyRef,
   afterNextRender,
+  computed,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { format } from 'date-fns';
@@ -22,6 +23,8 @@ import { FlexClockIconComponent } from '../shared/flex-clock-icon.component';
 import { FlexPopoverComponent } from '../shared/flex-popover.component';
 import { FlexTimeInputComponent } from '../shared/flex-time-input.component';
 import { FlexActionBarComponent } from '../shared/flex-action-bar.component';
+import { flexThemeTokensToStyle, type FlexThemeTokens } from '../themes/flex-theme-tokens';
+import type { FlexColorScheme } from '../types';
 
 @Component({
   selector: 'fdp-time-picker',
@@ -40,7 +43,12 @@ import { FlexActionBarComponent } from '../shared/flex-action-bar.component';
     FlexClockIconComponent,
   ],
   template: `
-    <div #pickerWrapper class="flex-picker flex-picker-wrapper">
+    <div
+      #pickerWrapper
+      class="flex-picker flex-picker-wrapper"
+      [attr.data-flex-theme]="colorScheme() ?? null"
+      [style]="pickerThemeStyles()"
+    >
       <button
         type="button"
         class="flex-picker-trigger"
@@ -99,6 +107,11 @@ export class FlexTimePickerComponent implements ControlValueAccessor {
   readonly showSeconds = input(false);
   readonly disabled = input(false);
   readonly showIcon = input(true);
+  /** When set, overrides the document theme for this picker only. */
+  readonly colorScheme = input<FlexColorScheme>();
+  /** Partial palette overrides applied as CSS variables on this picker. */
+  readonly customColors = input<FlexThemeTokens>();
+  readonly pickerThemeStyles = computed(() => flexThemeTokensToStyle(this.customColors()));
   readonly timeChange = output<Date | null>();
 
   private readonly overlay = inject(FlexOverlayService);
