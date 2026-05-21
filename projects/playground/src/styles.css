@@ -115,7 +115,7 @@ a {
   height: 1.125rem;
 }
 
-.site-nav__github {
+.site-nav__external {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -130,8 +130,19 @@ a {
   transition: opacity 0.15s;
 }
 
-.site-nav__github:hover {
+.site-nav__external:hover {
   opacity: 0.92;
+}
+
+.site-nav__external--secondary {
+  background: var(--flex-surface);
+  color: inherit;
+  border: 1px solid var(--flex-border);
+}
+
+.site-nav__external--secondary:hover {
+  background: var(--flex-muted);
+  opacity: 1;
 }
 
 .playground {
@@ -532,12 +543,29 @@ a {
   color: var(--flex-muted-foreground);
 }
 
+.docs-hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin-top: 1rem;
+}
+
 .docs-hero__cta {
   display: inline-block;
-  margin-top: 1rem;
   font-size: 0.9375rem;
   font-weight: 600;
   color: var(--flex-primary);
+}
+
+.docs-hero__link {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--flex-primary);
+}
+
+.docs-hero__link:hover {
+  text-decoration: underline;
 }
 
 .docs-hero__cta:hover {

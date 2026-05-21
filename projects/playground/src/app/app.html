@@ -47,7 +47,8 @@
           </svg>
         }
       </button>
-      <a class="site-nav__github" [href]="githubUrl" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a class="site-nav__external" [href]="githubUrl" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a class="site-nav__external site-nav__external--secondary" [href]="npmPackageUrl" target="_blank" rel="noopener noreferrer">npm</a>
     </div>
   </header>
 
@@ -76,6 +77,8 @@
           <li><a routerLink="/docs">Documentation</a></li>
           <li><a routerLink="/docs" fragment="api-reference">API Reference</a></li>
           <li><a routerLink="/">Examples</a></li>
+          <li><a [href]="githubUrl" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a [href]="npmPackageUrl" target="_blank" rel="noopener noreferrer">npm package</a></li>
         </ul>
       </div>
     </div>

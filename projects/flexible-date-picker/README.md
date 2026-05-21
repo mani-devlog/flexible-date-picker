@@ -2,6 +2,10 @@
 
 Flexible date and time pickers for **Angular 20+**. Eight standalone components (date, time, month, year — single and range), headless selection engines, reactive forms support, light/dark theming, and locale/RTL layout.
 
+- [GitHub repository](https://github.com/mani-devlog/flexible-date-picker)
+- [npm package](https://www.npmjs.com/package/@manidev/ngx-flexible-date-picker)
+- [Documentation & examples](https://mani-devlog.github.io/flexible-date-picker/)
+
 Built with [date-fns](https://date-fns.org/) for formatting and calendar math.
 
 ## Requirements

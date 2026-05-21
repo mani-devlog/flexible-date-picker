@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FlexLocaleService, FlexThemeService } from '@manidev/ngx-flexible-date-picker';
+import { GITHUB_REPO_URL, NPM_PACKAGE_URL } from './shared/project-links';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class App {
 
   readonly darkMode = signal(false);
   readonly selectedLocale = signal('en');
-  readonly githubUrl = 'https://github.com';
+  readonly githubUrl = GITHUB_REPO_URL;
+  readonly npmPackageUrl = NPM_PACKAGE_URL;
   readonly currentYear = new Date().getFullYear();
 
   toggleDarkMode(): void {

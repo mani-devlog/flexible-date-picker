@@ -33,7 +33,11 @@
           Complete guide to installing, configuring, and using FlexibleDatePicker in Angular
           applications.
         </p>
-        <a class="docs-hero__cta" routerLink="/">Open live examples →</a>
+        <div class="docs-hero__links">
+          <a class="docs-hero__cta" routerLink="/">Open live examples →</a>
+          <a class="docs-hero__link" [href]="githubUrl" target="_blank" rel="noopener noreferrer">GitHub repository</a>
+          <a class="docs-hero__link" [href]="npmPackageUrl" target="_blank" rel="noopener noreferrer">npm package</a>
+        </div>
       </header>
 
       <section id="introduction" class="docs-section">
@@ -45,6 +49,12 @@
           for formatting and calendar math, ships with light/dark theming via CSS variables, and
           implements the Control Value Accessor (CVA) pattern for seamless reactive forms and
           template-driven forms integration.
+        </p>
+        <p>
+          Source code and releases:
+          <a [href]="githubUrl" target="_blank" rel="noopener noreferrer">GitHub repository</a>
+          ·
+          <a [href]="npmPackageUrl" target="_blank" rel="noopener noreferrer">npm package</a>
         </p>
         <p>All public pickers use the <code>fdp-*</code> selector prefix:</p>
         <div class="docs-table-wrap">
@@ -93,7 +103,11 @@
 
       <section id="installation" class="docs-section">
         <h2>Installation</h2>
-        <p>Install the library and its peer dependency:</p>
+        <p>
+          Install from
+          <a [href]="npmPackageUrl" target="_blank" rel="noopener noreferrer">npm</a>
+          and its peer dependency:
+        </p>
         <app-code-block
           label="Installation"
           filename="terminal"
